@@ -1,3 +1,4 @@
+﻿using Server.Controllers;
 
 namespace Server
 {
@@ -29,6 +30,8 @@ namespace Server
 
 
             app.MapControllers();
+
+                        //app.MapWeatherForecastEndpoints();
 
             app.Run();
         }
