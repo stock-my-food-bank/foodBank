@@ -5,19 +5,19 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class SurveysController : ControllerBase
     {
-        private UserRepository _userRepository;
-        public UserController()
+        private SurveysRepository _surveysRepository;
+        public SurveysController()
         {
-            _userRepository = new UserRepository();
+            _surveysRepository = new SurveysRepository();
         }
 
-        [HttpGet]
+        [HttpGet("count")]
         public IActionResult Get()
         {
-            var count = _userRepository.GetCount();
-            return Ok( count );
+            var count = _surveysRepository.GetCount();
+            return Ok(count);
         }
         //[HttpGet("{id}")]
         //public IActionResult Get(int id)
