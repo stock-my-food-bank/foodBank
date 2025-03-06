@@ -2,11 +2,11 @@
 
 namespace Server.Repositories
 {
-    public class Repository
+    public class FoodItemRepository
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
-        public Repository()
+        public FoodItemRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {

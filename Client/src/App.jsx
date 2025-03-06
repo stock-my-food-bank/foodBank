@@ -10,7 +10,7 @@ function App() {
   useEffect(()=> {
     fetch('https://localhost:7183/api/Values').then(res=>{
       res.json().then(json=> {console.log(json)
-        setCount(json[0])
+        setCount(json)
       })
     })
   })

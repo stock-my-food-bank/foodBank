@@ -1,18 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Server.Repositories;
 
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UserController : ControllerBase
     {
-        [HttpGet]
+        private UserRepository _userRepository;
+        public UserController()
+        {
+            _userRepository = new UserRepository();
+        }
+
+        [HttpGet("count")]
         public IActionResult Get()
         {
-            var repository = new Repositories.Repository();
-            var count = repository.GetCount();
-            return Ok(new int[] { count });
+            var count = _userRepository.GetCount();
+            return Ok( count);
         }
         //[HttpGet("{id}")]
         //public IActionResult Get(int id)

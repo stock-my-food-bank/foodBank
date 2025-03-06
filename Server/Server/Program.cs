@@ -40,8 +40,6 @@ namespace Server
 
             app.MapControllers();
 
-                        //app.MapWeatherForecastEndpoints();
-
             app.Run();
         }
     }
