@@ -5,18 +5,18 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FoodItemController : ControllerBase
+    public class FoodItemsController : ControllerBase
     {
-        private FoodItemRepository _foodItemRepository;
-        public FoodItemController() 
+        private FoodItemsRepository _foodItemsRepository;
+        public FoodItemsController() 
         {
-            _foodItemRepository = new FoodItemRepository();
+            _foodItemsRepository = new FoodItemsRepository();
         }
 
         [HttpGet("count")]
         public IActionResult Get()
         {
-            var count = _foodItemRepository.GetCount();
+            var count = _foodItemsRepository.GetCount();
             return Ok(count);
         }
         //[HttpGet("{id}")]

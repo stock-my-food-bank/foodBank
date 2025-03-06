@@ -2,23 +2,20 @@
 
 namespace Server.Repositories
 {
-    public class SurveysRepository
+    public class UsersRepository
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
-        public SurveysRepository()
+        public UsersRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText =
-                    @"CREATE TABLE IF NOT EXISTS Surveys ( 
+                command.CommandText = 
+                    @"CREATE TABLE IF NOT EXISTS Users ( 
                         Id INTEGER PRIMARY KEY, 
-                        userId INTEGER,
-                        commentId INTEGER,
-                        FOREIGN KEY(userId) REFERENCES Users(Id),
-                        FOREIGN KEY(commentId) REFERENCES Comments(Id)
+                        role TEXT
                     )";
                 command.ExecuteNonQuery();
             }
@@ -30,7 +27,7 @@ namespace Server.Repositories
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT COUNT(*) FROM Surveys";
+                command.CommandText = "SELECT COUNT(*) FROM Users";
                 return (int)(long)command.ExecuteScalar();
             }
         }

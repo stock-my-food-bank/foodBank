@@ -2,20 +2,25 @@
 
 namespace Server.Repositories
 {
-    public class UserRepository
+    public class FoodItemsRepository
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
-        public UserRepository()
+        public FoodItemsRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
+                /* only TEXT, BLOB, NULL, INTEGER, REAL as datatypes in SQLite
+                 * will need to convert allergens TEXT to list of strings seperated by comma
+                 conversions should be done in repository
+                */
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                    @"CREATE TABLE IF NOT EXISTS User ( 
+                    @"CREATE TABLE IF NOT EXISTS FoodItems (
                         Id INTEGER PRIMARY KEY, 
-                        role TEXT
+                        Name TEXT, 
+                        Allergens TEXT
                     )";
                 command.ExecuteNonQuery();
             }
@@ -27,7 +32,7 @@ namespace Server.Repositories
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT COUNT(*) FROM User";
+                command.CommandText = "SELECT COUNT(*) FROM FoodItems";
                 return (int)(long)command.ExecuteScalar();
             }
         }
