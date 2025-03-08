@@ -8,7 +8,9 @@ function SubmitButton() {
 
     //Handle button click event 
     const handleSubmit = () => {
+        console.log('Submit Button has been clicked!');
         setShowAlert(true); //Shows the alert when submit button is clicked
+
 
     };
 
@@ -17,7 +19,7 @@ function SubmitButton() {
             <button className="btn btn-info" onClick={handleSubmit}>
                 Submit
           </button>
-          
+
         </div>
     );
 }
