@@ -6,6 +6,12 @@ namespace Server.Repositories
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
+        public int foodId { get; set; }
+
+        public string foodName { get; set; }
+
+        public string[] allergens { get; set; }
+
         public FoodItemsRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
@@ -35,6 +41,11 @@ namespace Server.Repositories
                 command.CommandText = "SELECT COUNT(*) FROM FoodItems";
                 return (int)(long)command.ExecuteScalar();
             }
+        }
+
+        public void GetFoodItems()
+        {
+
         }
     }
 }
