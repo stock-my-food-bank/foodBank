@@ -39,6 +39,8 @@ StockMyFoodBank allows users to:
 ```javascript
 cd client
 npm i 
+npm i --save bootstrap @popperjs/core
+npm i --save-dev sass
 npm start
 ```
 #### 3. Run Server:
