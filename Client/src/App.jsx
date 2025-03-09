@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import SubmitButton from './Components/btnSubmit';
-import ResultsButton from './Components/btnResults';
+import BasicButton from './Components/BasicButton';
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -43,12 +43,12 @@ function App() {
       </p>
       {/*Nyambura --Results button*/}
       <div>
-        <ResultsButton/>
+        <BasicButton text="Results"/>
       </div>
       
      {/*Nyambura --Submit button*/}
       <div>
-        <SubmitButton/>
+        <BasicButton text="Submit"/>
       </div>
 
     </>
