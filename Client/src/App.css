@@ -1,6 +1,18 @@
 #root {
-  max-width: 1280px;
+  /*Nyambura --ensures content takes up full width and the least full height of viewport */
+  width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  
+}
+.container-md {
+  /* container for different survery views*/
+
+  width: 100%;             /* Set width to 100% of the parent */
+  height: 400px;           /* Sets a fixed height*/
+  padding: 2rem;           
+  margin: 0 auto;          
+  box-sizing: border-box;  /* Include padding in the element's total width/height */
 }

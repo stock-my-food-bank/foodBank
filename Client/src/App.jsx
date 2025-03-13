@@ -28,15 +28,7 @@ function App() {
         <SurveyPage />
       </div>
       
-      {/*Nyambura --Results button*/}
-      <div>
-        <BasicButton text="Results"/>
-      </div>
       
-     {/*Nyambura --Submit button*/}
-      <div>
-        <BasicButton text="Submit"/>
-      </div>
 
     </>
   )
