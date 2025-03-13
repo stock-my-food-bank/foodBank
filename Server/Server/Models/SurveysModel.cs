@@ -14,6 +14,5 @@
             this.userId = user.userId;
             this.commentId = comments.commentId;
         }
-
     }
 }
