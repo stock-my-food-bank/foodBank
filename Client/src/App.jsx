@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import BasicButton from './Components/BasicButton';
+import FoodItems from './Components/SPComponents/FoodItems';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
       
      {/*Nyambura --Submit button*/}
       <div>
-        <BasicButton text="Submit"/>
+        <FoodItems/>
       </div>
 
     </>
