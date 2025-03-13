@@ -19,6 +19,12 @@ namespace Server.Controllers
             var count = _surveyFoodItemResultsRepository.GetCount();
             return Ok(count);
         }
+        [HttpPost]
+        public IActionResult Post([FromBody] string value)
+        {
+
+            return Ok();
+        }
         //[HttpGet("{id}")]
         //public IActionResult Get(int id)
         //{
