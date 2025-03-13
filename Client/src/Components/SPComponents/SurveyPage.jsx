@@ -4,18 +4,18 @@ import BasicButton from '../BasicButton'
 import FoodItems from './FoodItems';
 //Nyambura --Imported comments component 
 import Comments from './Comments';
+//Nyambura --Imported Logo component 
+import Logo from '../Logo';
 
 function SurveyPage() {
   return (
     
   
     <div className="Container-fluid"> 
-        {/* Nav Bar  */}
-        <nav className="navbar navbar-light bg-info">
-            <div className="container-fluid">
-                <span className="navbar-brand mb-0 h1">StockMyFoodBank</span>
-            </div>
-        </nav>
+        {/* Header  */}
+       <div>
+            <Logo/>
+       </div>
 
         {/* Results Button for Survey Page, styled to start from opposite side */}
         <div className="d-flex flex-row-reverse">
@@ -38,16 +38,14 @@ function SurveyPage() {
         </div>
 
         {/* Submit Button for Survey Page, styled to be in the middle of page */}
-         <div className="d-flex justify-content-center ">
+        <div className="d-flex justify-content-center ">
             <BasicButton text="Submit"/>
         </div>
 
         {/* Footer for view 1 survey page */}
-        <nav className="navbar navbar-light bg-info">
-            <div className="container-fluid">
-                <span className="navbar-brand mb-0 h1">StockMyFoodBank</span>
-            </div>
-        </nav>
+        <div>
+            <Logo />
+       </div>
            
     
     </div>
