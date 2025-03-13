@@ -10,7 +10,7 @@ namespace Server.Repositories
 
         public string foodName { get; set; }
 
-        public string[] allergens { get; set; }
+        public string[]? allergens { get; set; }
 
         public FoodItemsRepository()
         {
@@ -43,9 +43,65 @@ namespace Server.Repositories
             }
         }
 
-        public void GetFoodItems()
+        private string ConvertArrayToString(string[] array)
         {
+            string text = "";
 
+            for (int i = 0; i < array.Length; i++)
+            {
+                text += array[i] + ",";
+            }
+
+            return text;
+        }
+
+        public FoodItemsRepository GetOneFoodItem(int foodId)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
+                command.Parameters.AddWithValue("@foodId", foodId);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                FoodItemsRepository foodItem = new FoodItemsRepository();
+
+                while (reader.Read())
+                {
+                    foodItem.foodId = foodId;
+                    foodItem.foodName = reader[2].ToString();
+                    foodItem.allergens = reader[3].ToString().Split(",");
+                }
+
+                return foodItem;
+            }
+        }
+
+        public List<FoodItemsRepository> GetAllFoodItems()
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM FoodItems";
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                List<FoodItemsRepository> allFoodItems = new List<FoodItemsRepository>();
+
+                while (reader.Read())
+                {
+                    FoodItemsRepository foodItem = new FoodItemsRepository();
+
+                    foodItem.foodId = foodId;
+                    foodItem.foodName = reader[2].ToString();
+                    foodItem.allergens = reader[3].ToString().Split(",");
+
+                    allFoodItems.Add(foodItem);
+                }
+
+                return allFoodItems;
+            }
         }
     }
 }
