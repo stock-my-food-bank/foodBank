@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using Server.Models;
+using System.Data.SQLite;
 
 namespace Server.Repositories
 {
@@ -6,9 +7,7 @@ namespace Server.Repositories
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
-
-
-        public void SurveyFoodItemResultsCreateTable()
+        public SurveyFoodItemResultsRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -31,14 +30,8 @@ namespace Server.Repositories
             }
         }
 
-        public void SurveyFoodItemResultsInsert()
+        public int SurveyFoodItemResultsInsert(SurveyFoodItemResultsPost surveyFoodItemResult)
         {
-            /* only TEXT, BLOB, NULL, INTEGER, REAL as datatypes in SQLite
-             * for date time consider EPOCH for datetime into a num  https://www.epochconverter.com/ or STRING
-             * DateTimeOffset.Now.ToUnixTimeSeconds()
-             for enum can be mapped to INTEGER or STRING
-             conversions should be done in repository
-             */
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 int voteCountYes = 0;
@@ -76,6 +69,7 @@ namespace Server.Repositories
                 command.ExecuteNonQuery();
                 connection.Close();
             }
+            return  0;
         }
 
         public int GetCount()
