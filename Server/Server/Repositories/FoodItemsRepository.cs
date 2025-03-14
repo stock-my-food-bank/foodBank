@@ -1,16 +1,12 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
+using System.Models;
 
 namespace Server.Repositories
 {
     public class FoodItemsRepository
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
-
-        public int foodId { get; set; }
-
-        public string foodName { get; set; }
-
-        public string[]? allergens { get; set; }
 
         public FoodItemsRepository()
         {
