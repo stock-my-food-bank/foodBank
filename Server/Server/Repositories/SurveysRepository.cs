@@ -24,6 +24,20 @@ namespace Server.Repositories
             }
         }
 
+        //create a new survey
+        public void SubmitSurvey(int userId, int commentId)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO Surveys (userId, commentId) VALUES (@userId, @commentId)";
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@commentId", commentId);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public int GetCount()
         {
             using (var connection = new SQLiteConnection(_connectionString))
