@@ -5,7 +5,7 @@
         public int surveyId { get; set; }
         public int userId { get; set; }
         public int commentId { get; set; }
-        private int idCounter=1;
+        private static int idCounter = 1;
 
         public SurveysPost(int userId, int commentId)
         {

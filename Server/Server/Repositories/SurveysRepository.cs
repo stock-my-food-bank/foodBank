@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using Server.Models;
+using System.Data.SQLite;
 
 namespace Server.Repositories
 {
@@ -21,21 +22,33 @@ namespace Server.Repositories
                         FOREIGN KEY(commentId) REFERENCES Comments(Id)
                     )";
                 command.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
         //create a new survey
-        public void SubmitSurvey(int userId, int commentId)
+        public int SubmitSurvey(SurveysPost newSurvey)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO Surveys (userId, commentId) VALUES (@userId, @commentId)";
-                command.Parameters.AddWithValue("@userId", userId);
-                command.Parameters.AddWithValue("@commentId", commentId);
+                command.CommandText = 
+                    @"INSERT INTO Surveys (
+                        Id, 
+                        userId, 
+                        commentId
+                    ) VALUES (
+                        @surveyId, 
+                        @userId, 
+                        @commentId)";
+                command.Parameters.AddWithValue("@Id", newSurvey.surveyId);
+                command.Parameters.AddWithValue("@userId", newSurvey.userId);
+                command.Parameters.AddWithValue("@commentId", newSurvey.commentId);
                 command.ExecuteNonQuery();
+                connection.Close();
             }
+            return newSurvey.surveyId;
         }
 
         public int GetCount()
@@ -45,7 +58,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT COUNT(*) FROM Surveys";
-                return (int)(long)command.ExecuteScalar();
+                var count = (int)(long)command.ExecuteScalar();
+                connection.Close();
+                return count;
             }
         }
     }

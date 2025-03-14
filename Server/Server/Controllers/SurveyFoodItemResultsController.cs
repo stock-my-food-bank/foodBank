@@ -15,17 +15,20 @@ namespace Server.Controllers
         }
 
 
+        //consider making votecounts 0 and running when foodItem is created in controller
         [HttpPost]
-        public IActionResult Post([FromBody] SurveyFoodItemResultsPost surveyFoodItem)
+        public IActionResult Post([FromBody] int foodItemId, bool voteCountYes, bool voteCountNo, int surveyId)
         {
-            if(!ModelState.IsValid)
+            SurveyFoodItemResultsPost surveyFoodItem = new SurveyFoodItemResultsPost(foodItemId, voteCountYes, voteCountNo, surveyId);
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             _surveyFoodItemResultsRepository.InsertSurvey(surveyFoodItem);
-            return Ok();
+            return Ok(surveyFoodItem.surveyFoodItemResultsId);
         }
-        [HttpPut("{id}")]
+
+        [HttpPut("{id}")] 
         public IActionResult Put(int id, [FromBody] SurveyFoodItemResultsPut surveyFoodItemResult)
         {
 

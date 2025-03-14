@@ -18,6 +18,7 @@ namespace Server.Repositories
                         role TEXT
                     )";
                 command.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
@@ -28,7 +29,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT COUNT(*) FROM Users";
-                return (int)(long)command.ExecuteScalar();
+                var count = (int)(long)command.ExecuteScalar();
+                connection.Close();
+                return count;
             }
         }
     }

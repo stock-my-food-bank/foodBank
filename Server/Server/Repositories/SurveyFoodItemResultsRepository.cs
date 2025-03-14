@@ -70,7 +70,7 @@ namespace Server.Repositories
                 command.ExecuteNonQuery();
                 connection.Close();
             }
-            return  0;
+            return 0;
         }
 
 
@@ -143,6 +143,8 @@ namespace Server.Repositories
                 }
                 result.rank = reader2.GetInt32(0) + 1;
 
+                connection.Close();
+
                 return result;
             }
         }
@@ -174,6 +176,7 @@ namespace Server.Repositories
                         surveyId = reader.GetInt32(6)
                     });
                 }
+                connection.Close();
                 return surveyFoodItemResults;
             }
         }
@@ -186,7 +189,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT COUNT(*) FROM SurveyFoodItemResults";
-                return (int)(long)command.ExecuteScalar();
+                var count = (int)(long)command.ExecuteScalar();
+                connection.Close();
+                return count;
             }
         }
     }

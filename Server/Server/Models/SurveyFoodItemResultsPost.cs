@@ -6,18 +6,23 @@
         public int surveyFoodItemResultsId { get; set; }
         public int surveyId { get; set; }
         public int foodItemId { get; set; }
-        public int voteCountYes { get; set; }
+        public int voteCountYes  { get; set; }
         public int voteCountNo { get; set; }
-        private int idCounter;
+        private static int idCounter = 1;
 
-        public SurveyFoodItemResultsPost(int foodItemId, int voteCountYes, int voteCountNo, int surveyId)
+        public SurveyFoodItemResultsPost(int foodItemId, bool voteCountYes, bool voteCountNo, int surveyId)
         {
-            idCounter++;
-            this.surveyFoodItemResultsId = idCounter;
+            this.surveyFoodItemResultsId = idCounter++;
             this.surveyId = surveyId;
             this.foodItemId = foodItemId;
-            this.voteCountYes = voteCountYes;
-            this.voteCountNo = voteCountNo;
+            if (voteCountYes && !voteCountNo)
+            {
+                this.voteCountYes++;
+            }
+            else if (voteCountNo && !voteCountYes)
+            {
+                this.voteCountNo++;
+            }
         }
     }
 }
