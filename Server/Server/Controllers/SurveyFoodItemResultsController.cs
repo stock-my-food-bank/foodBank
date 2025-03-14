@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Models;
 using Server.Repositories;
 
 namespace Server.Controllers
@@ -13,17 +14,16 @@ namespace Server.Controllers
             _surveyFoodItemResultsRepository = new SurveyFoodItemResultsRepository();
         }
 
-        [HttpGet("count")]
-        public IActionResult Get()
-        {
-            var count = _surveyFoodItemResultsRepository.GetCount();
-            return Ok(count);
-        }
-        [HttpPost]
-        public IActionResult Post([FromBody] string value)
-        {
 
-            return Ok();
+        [HttpPost]
+        public IActionResult Post([FromBody] SurveyFoodItemResultsPost surveyFoodItem)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int surveyResultId = _surveyFoodItemResultsRepository.SurveyFoodItemResultsInsert(surveyFoodItem);
+            return Ok(surveyResultId);
         }
         //[HttpGet("{id}")]
         //public IActionResult Get(int id)
@@ -45,5 +45,13 @@ namespace Server.Controllers
         //{
         //    return Ok();
         //}
+
+        //testing connection
+        [HttpGet("count")]
+        public IActionResult Get()
+        {
+            var count = _surveyFoodItemResultsRepository.GetCount();
+            return Ok(count);
+        }
     }
 }
