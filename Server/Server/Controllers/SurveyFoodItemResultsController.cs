@@ -22,15 +22,15 @@ namespace Server.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int surveyResultId = _surveyFoodItemResultsRepository.InsertSurvey(surveyFoodItem);
-            return Ok(surveyResultId);
+            _surveyFoodItemResultsRepository.InsertSurvey(surveyFoodItem);
+            return Ok();
         }
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] SurveyFoodItemResultsPut surveyFoodItemResult)
         {
 
-            var result = _surveyFoodItemResultsRepository.TallyVotes(surveyFoodItemResult, id);
-            return Ok(result);
+            _surveyFoodItemResultsRepository.TallyVotes(surveyFoodItemResult, id);
+            return Ok();
         }
 
         [HttpGet()]
