@@ -22,29 +22,28 @@ namespace Server.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int surveyResultId = _surveyFoodItemResultsRepository.SurveyFoodItemResultsInsert(surveyFoodItem);
+            int surveyResultId = _surveyFoodItemResultsRepository.InsertSurvey(surveyFoodItem);
             return Ok(surveyResultId);
         }
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    return Ok("value");
-        //}
-        //[HttpPost]
-        //public IActionResult Post([FromBody] string value)
-        //{
-        //    return Ok();
-        //}
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, [FromBody] string value)
-        //{
-        //    return Ok();
-        //}
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    return Ok();
-        //}
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] SurveyFoodItemResultsPut surveyFoodItemResult)
+        {
+
+            var result = _surveyFoodItemResultsRepository.TallyVotes(surveyFoodItemResult, id);
+            return Ok(result);
+        }
+
+        [HttpGet()]
+        [Route("/api/SurveyFoodItemResults")]
+        public ActionResult<List<SurveyFoodItemResultsGet>> GetVotes()
+        {
+            var results = _surveyFoodItemResultsRepository.GetVotes();
+            if(results == null)
+            {
+                return NotFound();
+            }
+            return Ok(results);
+        }
 
         //testing connection
         [HttpGet("count")]

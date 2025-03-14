@@ -8,10 +8,9 @@
         public int foodItemId { get; set; }
         public int voteCountYes { get; set; }
         public int voteCountNo { get; set; }
-        public int rank { get; set; }
         private int idCounter;
 
-        public SurveyFoodItemResultsPost(int foodItemId, int voteCountYes, int voteCountNo, int rank, int surveyId)
+        public SurveyFoodItemResultsPost(int foodItemId, int voteCountYes, int voteCountNo, int surveyId)
         {
             idCounter++;
             this.surveyFoodItemResultsId = idCounter;
@@ -19,7 +18,6 @@
             this.foodItemId = foodItemId;
             this.voteCountYes = voteCountYes;
             this.voteCountNo = voteCountNo;
-            this.rank = rank;
         }
     }
 }
