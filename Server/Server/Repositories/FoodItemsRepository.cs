@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.Security.Policy;
+using System.Text.Json;
 using Server.Models;
 
 namespace Server.Repositories
@@ -101,7 +102,7 @@ namespace Server.Repositories
             }
         }
 
-        public async Task<string> GetFoodItemsFromSpoonacular()
+        public async Task<List<FoodItemsGet>> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
             string api_key = Environment.GetEnvironmentVariable("api_key");
@@ -113,7 +114,9 @@ namespace Server.Repositories
 
             string requestBody = await response.Content.ReadAsStringAsync();
 
-            return requestBody;
+            List<FoodItemsGet> foodItems = JsonSerializer.Deserialize<List<FoodItemsGet>>(requestBody);
+
+            return foodItems;
         }
     }
 }
