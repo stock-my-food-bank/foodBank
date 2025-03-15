@@ -1,5 +1,4 @@
 ﻿using Server.Models;
-using System;
 using System.Data.SQLite;
 
 namespace Server.Repositories
@@ -32,45 +31,47 @@ namespace Server.Repositories
         }
 
         //Create
-        public int InsertSurvey(SurveyFoodItemResultsPost surveyFoodItemResult)
+        public int? InsertSurvey(SurveyFoodItemResultsInsert surveyFoodItemResult)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
-                int voteCountYes = 0;
-                int voteCountNo = 0;
+                int voteCountYes = surveyFoodItemResult.voteCountYes;
+                int voteCountNo = surveyFoodItemResult.voteCountNo;
                 int dateTime = unchecked((int)DateTimeOffset.Now.ToUnixTimeSeconds()); // EPOCH for datetime into a num, is meant to have errors after 2038
-                int foodItemId = 123; //dummy data
-                int surveyId = 123; //dummy data
+                int foodItemId = surveyFoodItemResult.foodItemId;
+                int surveyId = surveyFoodItemResult.surveyId;
 
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText =
                     @"INSERT INTO SurveyFoodItemResults (
-                        Id,
                         voteCountYes,
                         voteCountNo,
                         dateTime, 
                         foodItemId, 
                         surveyId
                     ) VALUES (
-                        $Id,
                         $voteCountYes, 
                         $voteCountNo, 
                         $dateTime, 
                         $foodItemId,
                         $surveyId
-                    )";
-                command.Parameters.AddWithValue("$Id", surveyFoodItemResult.surveyFoodItemResultsId);
+                    );
+                    SELECT last_insert_rowid();";
                 command.Parameters.AddWithValue("$voteCountYes", voteCountYes);
                 command.Parameters.AddWithValue("$voteCountNo", voteCountNo);
                 command.Parameters.AddWithValue("$dateTime", dateTime);
                 command.Parameters.AddWithValue("$foodItemId", foodItemId);
                 command.Parameters.AddWithValue("$surveyId", surveyId);
-
-                command.ExecuteNonQuery();
+                var reader = command.ExecuteReader();
+                if (!reader.Read())
+                {
+                    return null;
+                }
+                surveyFoodItemResult.surveyId = reader.GetInt32(0);
                 connection.Close();
             }
-            return  0;
+            return surveyFoodItemResult.surveyId;
         }
 
 
@@ -143,6 +144,8 @@ namespace Server.Repositories
                 }
                 result.rank = reader2.GetInt32(0) + 1;
 
+                connection.Close();
+
                 return result;
             }
         }
@@ -174,6 +177,7 @@ namespace Server.Repositories
                         surveyId = reader.GetInt32(6)
                     });
                 }
+                connection.Close();
                 return surveyFoodItemResults;
             }
         }
@@ -186,7 +190,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT COUNT(*) FROM SurveyFoodItemResults";
-                return (int)(long)command.ExecuteScalar();
+                var count = (int)(long)command.ExecuteScalar();
+                connection.Close();
+                return count;
             }
         }
     }

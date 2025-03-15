@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.Models;
+using Server.Models;
 
 namespace Server.Repositories
 {
@@ -51,7 +51,7 @@ namespace Server.Repositories
             return text;
         }
 
-        public FoodItemsRepository GetOneFoodItem(int foodId)
+        public FoodItemsGet GetOneFoodItem(int foodId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -61,7 +61,7 @@ namespace Server.Repositories
                 command.Parameters.AddWithValue("@foodId", foodId);
                 SQLiteDataReader reader = command.ExecuteReader();
 
-                FoodItemsRepository foodItem = new FoodItemsRepository();
+                FoodItemsGet foodItem = new FoodItemsGet();
 
                 while (reader.Read())
                 {
@@ -69,12 +69,12 @@ namespace Server.Repositories
                     foodItem.foodName = reader[2].ToString();
                     foodItem.allergens = reader[3].ToString().Split(",");
                 }
-
+                connection.Close();
                 return foodItem;
             }
         }
 
-        public List<FoodItemsRepository> GetAllFoodItems()
+        public List<FoodItemsGet> GetAllFoodItems()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -83,18 +83,18 @@ namespace Server.Repositories
                 command.CommandText = "SELECT * FROM FoodItems";
                 SQLiteDataReader reader = command.ExecuteReader();
 
-                List<FoodItemsRepository> allFoodItems = new List<FoodItemsRepository>();
+                List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
 
                 while (reader.Read())
                 {
-                    FoodItemsRepository foodItem = new FoodItemsRepository();
-
-                    foodItem.foodId = foodId;
-                    foodItem.foodName = reader[2].ToString();
-                    foodItem.allergens = reader[3].ToString().Split(",");
-
-                    allFoodItems.Add(foodItem);
+                    allFoodItems.Add(new FoodItemsGet
+                    {
+                        foodId = reader.GetInt32(0),
+                        foodName = reader[1].ToString(),
+                        allergens = reader[2].ToString().Split(",")
+                    });
                 }
+                connection.Close();
 
                 return allFoodItems;
             }
