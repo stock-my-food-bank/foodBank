@@ -12,7 +12,7 @@ function BasicButton(props) {
     return (
        
         <div>
-            <button className="btn btn-info" onClick={handleBasicButton}>
+            <button className="btn btn-info m-3" onClick={handleBasicButton}>
         
                 {props.text}
             </button>
