@@ -27,25 +27,29 @@ namespace Server.Repositories
         }
 
         //create a new survey
-        public int SubmitSurvey(SurveysPost newSurvey)
+        public int? SubmitSurvey(SurveysPost newSurvey)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                    @"INSERT INTO Surveys (
-                        Id, 
+                    @"INSERT INTO Surveys ( 
                         userId, 
                         commentId
                     ) VALUES (
-                        @surveyId, 
                         @userId, 
-                        @commentId)";
-                command.Parameters.AddWithValue("@Id", newSurvey.surveyId);
+                        @commentId
+                    );
+                    SELECT last_insert_rowid();";
                 command.Parameters.AddWithValue("@userId", newSurvey.userId);
                 command.Parameters.AddWithValue("@commentId", newSurvey.commentId);
-                command.ExecuteNonQuery();
+                var reader = command.ExecuteReader();
+                if (!reader.Read())
+                {
+                    return null;
+                }
+                newSurvey.surveyId = reader.GetInt32(0);
                 connection.Close();
             }
             return newSurvey.surveyId;
