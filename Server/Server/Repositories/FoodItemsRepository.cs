@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.Security.Policy;
 using Server.Models;
 
 namespace Server.Repositories
@@ -51,7 +52,7 @@ namespace Server.Repositories
             return text;
         }
 
-        public FoodItemsGet GetOneFoodItem(int foodId)
+        public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -74,7 +75,7 @@ namespace Server.Repositories
             }
         }
 
-        public List<FoodItemsGet> GetAllFoodItems()
+        public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -98,6 +99,21 @@ namespace Server.Repositories
 
                 return allFoodItems;
             }
+        }
+
+        public async Task<string> GetFoodItemsFromSpoonacular()
+        {
+            string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
+            string api_key = Environment.GetEnvironmentVariable("api_key");
+            string api_parameters = "&query=\"meal\"&minCalories=100&addProductInformation=True&number=10";
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = await client.GetAsync(api_url + api_key + api_parameters);
+
+            string requestBody = await response.Content.ReadAsStringAsync();
+
+            return requestBody;
         }
     }
 }
