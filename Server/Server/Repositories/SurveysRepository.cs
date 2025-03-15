@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using Server.Models;
+using System.Data.SQLite;
 
 namespace Server.Repositories
 {
@@ -21,21 +22,39 @@ namespace Server.Repositories
                         FOREIGN KEY(commentId) REFERENCES Comments(Id)
                     )";
                 command.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
         //create a new survey
-        public void SubmitSurvey(int userId, int commentId)
+        public int? SubmitSurvey(SurveysPost newSurvey)
         {
+            int surveyId;
+
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO Surveys (userId, commentId) VALUES (@userId, @commentId)";
-                command.Parameters.AddWithValue("@userId", userId);
-                command.Parameters.AddWithValue("@commentId", commentId);
-                command.ExecuteNonQuery();
+                command.CommandText = 
+                    @"INSERT INTO Surveys ( 
+                        userId, 
+                        commentId
+                    ) VALUES (
+                        @userId, 
+                        @commentId
+                    );
+                    SELECT last_insert_rowid();";
+                command.Parameters.AddWithValue("@userId", newSurvey.userId);
+                command.Parameters.AddWithValue("@commentId", newSurvey.commentId);
+                var reader = command.ExecuteReader();
+                if (!reader.Read())
+                {
+                    return null;
+                }
+                surveyId = reader.GetInt32(0);
+                connection.Close();
             }
+            return surveyId;
         }
 
         public int GetCount()
@@ -45,7 +64,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT COUNT(*) FROM Surveys";
-                return (int)(long)command.ExecuteScalar();
+                var count = (int)(long)command.ExecuteScalar();
+                connection.Close();
+                return count;
             }
         }
     }

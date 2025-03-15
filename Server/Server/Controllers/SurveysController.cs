@@ -15,14 +15,15 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] SurveysPost survey)
+        public IActionResult Post(int userId, int commentId)
         {
+            SurveysPost newSurvey = new SurveysPost(userId, commentId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _surveysRepository.SubmitSurvey(survey.userId, survey.commentId);
-            return Ok();
+            int? surveyID =_surveysRepository.SubmitSurvey(newSurvey);
+            return Ok(surveyID);
         }
 
         //for testing purposes

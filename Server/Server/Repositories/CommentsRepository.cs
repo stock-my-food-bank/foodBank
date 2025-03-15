@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using Server.Models;
+using System.Data.SQLite;
 
 namespace Server.Repositories
 {
@@ -25,8 +26,71 @@ namespace Server.Repositories
 
                     )";
                 command.ExecuteNonQuery();
+                connection.Close();
             }
         }
+
+        //create a new comment - AddComment()
+        public int? AddComment(CommentsPost newComment)
+        {
+            int commentId;
+            int dateTime = unchecked((int)DateTimeOffset.Now.ToUnixTimeSeconds()); // EPOCH for datetime into a num, is meant to have errors after 2038
+
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    @"INSERT INTO Comments (                       
+                        comment,
+                        dateTime
+                    ) VALUES (    
+                        @comment,
+                        @dateTime
+                    ); 
+                    SELECT last_insert_rowid();";
+                command.Parameters.AddWithValue("@comment", newComment.comment);
+                command.Parameters.AddWithValue("@dateTime", dateTime);
+                var reader = command.ExecuteReader();
+                if (!reader.Read())
+                {
+                    return null;
+                }
+                commentId = reader.GetInt32(0);
+                connection.Close();
+            }
+            return commentId;
+        }
+
+
+        //get all comments - GetAllComments()
+        public List<CommentsGet> GetAllComments()
+        {
+            var comments = new List<CommentsGet>();
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    @"SELECT * 
+                    FROM Comments
+                    ORDER BY dateTime DESC";
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    comments.Add(new CommentsGet
+                    {
+                        commentId = reader.GetInt32(0),
+                        comment = reader.GetString(1),
+                        dateTime = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2)).DateTime
+                    });
+                }
+                connection.Close();
+            }
+            return comments;
+        }
+
+
 
         public int GetCount()
         {
@@ -35,7 +99,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT COUNT(*) FROM Comments";
-                return (int)(long)command.ExecuteScalar();
+                var count = (int)(long)command.ExecuteScalar();
+                connection.Close();
+                return count;
             }
         }
     }
