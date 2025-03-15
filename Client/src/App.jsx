@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import SurveyPage from './Components/SPComponents/SurveyPage';
+import ResultsPage from './Components/RPComponents/ResultsPage';
 
 
 
@@ -25,6 +26,7 @@ function App() {
      
 
       {/*Nyambura --Survey Page*/}
+      
       <div>
         <SurveyPage/>
       </div>
