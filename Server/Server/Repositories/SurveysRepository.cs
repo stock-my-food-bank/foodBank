@@ -29,6 +29,8 @@ namespace Server.Repositories
         //create a new survey
         public int? SubmitSurvey(SurveysPost newSurvey)
         {
+            int surveyId;
+
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
@@ -49,10 +51,10 @@ namespace Server.Repositories
                 {
                     return null;
                 }
-                newSurvey.surveyId = reader.GetInt32(0);
+                surveyId = reader.GetInt32(0);
                 connection.Close();
             }
-            return newSurvey.surveyId;
+            return surveyId;
         }
 
         public int GetCount()

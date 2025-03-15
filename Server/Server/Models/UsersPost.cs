@@ -2,13 +2,9 @@
 {
     public class UsersPost
     {
+        //might only need as a get
         public int userId { get; set; }
         public string role { get; set; }
-        private static int idCounter = 1;
 
-        public UsersPost()
-        {
-            this.userId = idCounter++;
-        }
     }
 }
