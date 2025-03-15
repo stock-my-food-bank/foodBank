@@ -23,7 +23,7 @@ namespace Server.Controllers
             }
             CommentsPost newComment = new CommentsPost(comment);
 
-            int commentId = _commentsRepository.AddComment(newComment);
+            int? commentId = _commentsRepository.AddComment(newComment);
 
             //returns commentId to be given to other tables
             return Ok(commentId);

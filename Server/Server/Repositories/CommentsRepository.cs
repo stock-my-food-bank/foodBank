@@ -31,7 +31,7 @@ namespace Server.Repositories
         }
 
         //create a new comment - AddComment()
-        public int AddComment(CommentsPost newComment)
+        public int? AddComment(CommentsPost newComment)
         {
             int dateTime = unchecked((int)DateTimeOffset.Now.ToUnixTimeSeconds()); // EPOCH for datetime into a num, is meant to have errors after 2038
 
@@ -40,20 +40,22 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText =
-                    @"INSERT INTO Comments (
-                        Id,                        
+                    @"INSERT INTO Comments (                       
                         comment,
                         dateTime
-                    ) VALUES (
-                        @Id,    
+                    ) VALUES (    
                         @comment,
                         @dateTime
-                    )";
-
-                command.Parameters.AddWithValue("@Id", newComment.commentId);
+                    ); 
+                    SELECT last_insert_rowid();";
                 command.Parameters.AddWithValue("@comment", newComment.comment);
                 command.Parameters.AddWithValue("@dateTime", dateTime);
-                command.ExecuteNonQuery();
+                var reader = command.ExecuteReader();
+                if (!reader.Read())
+                {
+                    return null;
+                }
+                newComment.commentId = reader.GetInt32(0);
                 connection.Close();
             }
             return newComment.commentId;
