@@ -6,6 +6,8 @@ import FoodItems from './FoodItems';
 import Comments from './Comments';
 //Nyambura --Imported Logo component 
 import Logo from '../Logo';
+//Imported Pagination 
+import Pagination from '../Pagination';
 
 function SurveyPage() {
   return (
@@ -30,6 +32,11 @@ function SurveyPage() {
         {/* Container that hold view 1 survey page food items */}
         <div className="Container-md bg-info">
             <FoodItems/>
+        </div>
+        {/* Pagination  */}
+        <div>
+            <Pagination />
+
         </div>
 
         {/* Comments section added for view 1 survey page  */}
