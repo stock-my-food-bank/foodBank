@@ -25,7 +25,5 @@
 .card {
   height: 100%; /* Card stretches vertically */
 }
-.Container-md bg-light me-5 ms-5 {
-  height: 400px;
-}
+
 
