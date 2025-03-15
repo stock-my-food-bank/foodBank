@@ -1,6 +1,6 @@
 ﻿namespace Server.Models
 {
-    public class UsersPost
+    public class UsersGet
     {
         //might only need as a get
         public int userId { get; set; }
