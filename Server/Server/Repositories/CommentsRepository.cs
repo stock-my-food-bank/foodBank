@@ -33,6 +33,7 @@ namespace Server.Repositories
         //create a new comment - AddComment()
         public int? AddComment(CommentsPost newComment)
         {
+            int commentId;
             int dateTime = unchecked((int)DateTimeOffset.Now.ToUnixTimeSeconds()); // EPOCH for datetime into a num, is meant to have errors after 2038
 
             using (var connection = new SQLiteConnection(_connectionString))
@@ -55,10 +56,10 @@ namespace Server.Repositories
                 {
                     return null;
                 }
-                newComment.commentId = reader.GetInt32(0);
+                commentId = reader.GetInt32(0);
                 connection.Close();
             }
-            return newComment.commentId;
+            return commentId;
         }
 
 

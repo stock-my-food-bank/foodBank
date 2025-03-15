@@ -15,14 +15,12 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] string comment)
+        public IActionResult Post([FromBody] CommentsPost newComment)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            CommentsPost newComment = new CommentsPost(comment);
-
             int? commentId = _commentsRepository.AddComment(newComment);
 
             //returns commentId to be given to other tables
