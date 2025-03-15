@@ -1,3 +1,7 @@
+//Nyambura --Imported Filter Component
+import Filter from "./Filter";
+
+
 function FoodItems () {
     return (
         <>
@@ -8,6 +12,10 @@ function FoodItems () {
                     <div className="card col-6 d-flex ">
                         <div className="card-header">
                             Items being considered by the foodbank:
+                        </div>
+                        {/*Filter Component Added */}
+                        <div>
+                            <Filter/>
                         </div>
                         <div className="card-body flex-fill">
                             {/* Nyambura -- Ordered list that holds every food item that will be considered, List Group Bootstrap  */}
@@ -51,33 +59,33 @@ function FoodItems () {
                         </div>
                         <div className="card-body flex-fill">
 
-                        {/* Ordered list that holds button groups for each food item being considered, button group bootstrap  */}
-                        <ol className="list-group list-group-numbered">
-                            {/* Individual button group for each food item selection  */}
-                            <li className="list-group-item p-3">
-                                <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                    <button type="button" className="btn btn-outline-dark">Yes</button>
-                                    <button type="button" className="btn btn-outline-dark">No</button>
-                                    <button type="button" className="btn btn-outline-dark">Skip</button>
-                                </div>
-                            </li>
-                            <li className="list-group-item p-3">
-                                <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-outline-dark">Yes</button>
-                                    <button type="button" class="btn btn-outline-dark">No</button>
-                                    <button type="button" class="btn btn-outline-dark">Skip</button>
-                                </div>
-                            </li>
-                            <li className="list-group-item p-3">
-                                <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                    <button type="button" className="btn btn-outline-dark">Yes</button>
-                                    <button type="button" className="btn btn-outline-dark">No</button>
-                                    <button type="button" className="btn btn-outline-dark">Skip</button>
-                                </div>
-                            </li>
-                        
+                            {/* Ordered list that holds button groups for each food item being considered, button group bootstrap  */}
+                            <ol className="list-group list-group-numbered mt-5">
+                                {/* Individual button group for each food item selection  */}
+                                <li className="list-group-item pt-4 pb-3">
+                                    <div className="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" className="btn btn-outline-dark">Yes</button>
+                                        <button type="button" className="btn btn-outline-dark">No</button>
+                                        <button type="button" className="btn btn-outline-dark">Skip</button>
+                                    </div>
+                                </li>
+                                <li className="list-group-item p-3">
+                                    <div className="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-dark">Yes</button>
+                                        <button type="button" class="btn btn-outline-dark">No</button>
+                                        <button type="button" class="btn btn-outline-dark">Skip</button>
+                                    </div>
+                                </li>
+                                <li className="list-group-item p-3">
+                                    <div className="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" className="btn btn-outline-dark">Yes</button>
+                                        <button type="button" className="btn btn-outline-dark">No</button>
+                                        <button type="button" className="btn btn-outline-dark">Skip</button>
+                                    </div>
+                                </li>
                             
-                        </ol>
+                                
+                            </ol>
                             
                         </div>
                     </div>
