@@ -4,6 +4,8 @@
 import Logo from "../Logo";
 //basic button stylin imported 
 import BasicButton from "../BasicButton";
+//RPComments imported 
+import RPComments from "./RPComments";
 
 
 
@@ -61,9 +63,13 @@ function ResultsPage() {
                         </table>
 
                     </div> 
+                    <div>
+                        <RPComments />
+                    </div>
 
                     
                 </div> 
+                
                 
 
                 {/* Footer for view 2 Results page */}

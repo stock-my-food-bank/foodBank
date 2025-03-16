@@ -28,7 +28,7 @@ function App() {
       {/*Nyambura --Survey Page*/}
       
       <div>
-        <SurveyPage/>
+        <ResultsPage/>
       </div>
       
 
