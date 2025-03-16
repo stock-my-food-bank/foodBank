@@ -1,4 +1,4 @@
-
+ 
 /* Nyambura --Basic Button functional component*/ 
 
 function BasicButton(props) {
@@ -12,7 +12,7 @@ function BasicButton(props) {
     return (
        
         <div>
-            <button className="btn btn-info m-3" onClick={handleBasicButton}>
+            <button className="custom-btn m-3 " onClick={handleBasicButton}>
         
                 {props.text}
             </button>

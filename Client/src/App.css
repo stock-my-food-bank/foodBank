@@ -26,4 +26,14 @@
   height: 100%; /* Card stretches vertically */
 }
 
+/*Nyambura --Light Blue StockMyFoodBank color */ 
+.Stock-Color {
+  background-color: #7fb7ee ;
+}
 
+/*Nyambura --Basic Button styling has light blue background color, black text and border radius*/
+.custom-btn {
+  background-color:#7fb7ee;
+  color: #000;
+  border-radius: 10px;
+}
