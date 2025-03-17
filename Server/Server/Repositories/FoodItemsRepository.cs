@@ -67,9 +67,9 @@ namespace Server.Repositories
 
                 while (reader.Read())
                 {
-                    foodItem.foodId = foodId;
-                    foodItem.foodName = reader[2].ToString();
-                    foodItem.allergens = reader[3].ToString().Split(",");
+                    foodItem.id = foodId;
+                    foodItem.title = reader[2].ToString();
+                    foodItem.badges = reader[3].ToString().Split(",");
                 }
                 connection.Close();
                 return foodItem;
@@ -91,9 +91,9 @@ namespace Server.Repositories
                 {
                     allFoodItems.Add(new FoodItemsGet
                     {
-                        foodId = reader.GetInt32(0),
-                        foodName = reader[1].ToString(),
-                        allergens = reader[2].ToString().Split(",")
+                        id = reader.GetInt32(0),
+                        title = reader[1].ToString(),
+                        badges = reader[2].ToString().Split(",")
                     });
                 }
                 connection.Close();
@@ -102,19 +102,19 @@ namespace Server.Repositories
             }
         }
 
-        public async Task<List<FoodItemsGet>> GetFoodItemsFromSpoonacular()
+        public async Task<FoodItemsFull> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
             string api_key = Environment.GetEnvironmentVariable("api_key");
             string api_parameters = "&query=\"meal\"&minCalories=100&addProductInformation=True&number=10";
 
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
 
-            HttpResponseMessage response = await client.GetAsync(api_url + api_key + api_parameters);
+            var response = await client.GetAsync(api_url + api_key + api_parameters);
 
             string requestBody = await response.Content.ReadAsStringAsync();
 
-            List<FoodItemsGet> foodItems = JsonSerializer.Deserialize<List<FoodItemsGet>>(requestBody);
+            var foodItems = JsonSerializer.Deserialize<FoodItemsFull>(requestBody);
 
             return foodItems;
         }
