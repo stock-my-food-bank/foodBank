@@ -69,7 +69,6 @@ namespace Server.Repositories
                 {
                     foodItem.id = foodId;
                     foodItem.title = reader[2].ToString();
-                    foodItem.badges = reader[3].ToString().Split(",");
                 }
                 connection.Close();
                 return foodItem;
@@ -93,7 +92,6 @@ namespace Server.Repositories
                     {
                         id = reader.GetInt32(0),
                         title = reader[1].ToString(),
-                        badges = reader[2].ToString().Split(",")
                     });
                 }
                 connection.Close();
@@ -102,11 +100,11 @@ namespace Server.Repositories
             }
         }
 
-        public async Task<FoodItemsFull> GetFoodItemsFromSpoonacular()
+        public async Task<FoodItemsBasic> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
             string api_key = Environment.GetEnvironmentVariable("api_key");
-            string api_parameters = "&query=\"meal\"&minCalories=100&addProductInformation=True&number=10";
+            string api_parameters = "&query=\"meal\"&minCalories=100&number=10";
 
             var client = new HttpClient();
 
@@ -114,7 +112,7 @@ namespace Server.Repositories
 
             string requestBody = await response.Content.ReadAsStringAsync();
 
-            var foodItems = JsonSerializer.Deserialize<FoodItemsFull>(requestBody);
+            var foodItems = JsonSerializer.Deserialize<FoodItemsBasic>(requestBody);
 
             return foodItems;
         }
