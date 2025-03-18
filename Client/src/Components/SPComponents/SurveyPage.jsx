@@ -1,3 +1,6 @@
+// Needed for routes as we are importing from the library
+import { Link } from 'react-router-dom';
+
 //Nyambura --Imported Basic Button Styling  
 import BasicButton from '../BasicButton'
 //Nyambura --Imported Food Item list 
@@ -12,6 +15,7 @@ import Pagination from '../Pagination';
 import Popup from './Popup';
 
 function SurveyPage() {
+    
   return (
     
   
@@ -48,7 +52,7 @@ function SurveyPage() {
 
         {/* Submit Button for Survey Page, styled to be in the middle of page */}
         <div className="d-flex justify-content-center ">
-            <BasicButton text="Submit"/>
+          <Link to="/results"> <BasicButton text="Submit"/></Link>
         </div>
         {/* Popup modal can alter header and text using props to show error and submitted popup when submit button is clicked  */}
         <div>
