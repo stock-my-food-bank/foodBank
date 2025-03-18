@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css'
 import SurveyPage from './Components/SPComponents/SurveyPage';
 import ResultsPage from './Components/RPComponents/ResultsPage';
@@ -20,20 +21,17 @@ function App() {
   }, [])
 
   return (
-    <>
-      
-     
-     
 
-      {/*Nyambura --Survey Page*/}
+    <BrowserRouter>
+      <Routes>
+        {/* Root path is Survey Page */}
+        <Route path="/" element={<SurveyPage/>}/>
+        {/* Lowercase path name shown to user in url, path to ResultsPage */}
+        <Route path="/results" elements={<ResultsPage/>}/>
+      </Routes>
+    </BrowserRouter>
       
-      <div>
-        <ResultsPage/>
-      </div>
-      
-
-    </>
-  )
+  );
 }
 
 export default App
