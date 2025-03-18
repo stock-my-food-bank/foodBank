@@ -2,7 +2,9 @@
 using System.Data.SQLite;
 using System.Security.Policy;
 using System.Text.Json;
+using Newtonsoft.Json;
 using Server.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Server.Repositories
 {
@@ -53,60 +55,61 @@ namespace Server.Repositories
             return text;
         }
 
-        public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
-                command.Parameters.AddWithValue("@foodId", foodId);
-                SQLiteDataReader reader = command.ExecuteReader();
+        //public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
+        //{
+        //    using (var connection = new SQLiteConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        var command = connection.CreateCommand();
+        //        command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
+        //        command.Parameters.AddWithValue("@foodId", foodId);
+        //        SQLiteDataReader reader = command.ExecuteReader();
 
-                FoodItemsGet foodItem = new FoodItemsGet();
+        //        FoodItemsGet foodItem = new FoodItemsGet();
 
-                while (reader.Read())
-                {
-                    foodItem.foodId = foodId;
-                    foodItem.foodName = reader[2].ToString();
-                    foodItem.allergens = reader[3].ToString().Split(",");
-                }
-                connection.Close();
-                return foodItem;
-            }
-        }
+        //        while (reader.Read())
+        //        {
+        //            foodItem.foodId = foodId;
+        //            foodItem.foodName = reader[2].ToString();
+        //            foodItem.allergens = reader[3].ToString().Split(",");
+        //        }
+        //        connection.Close();
+        //        return foodItem;
+        //    }
+        //}
 
-        public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM FoodItems";
-                SQLiteDataReader reader = command.ExecuteReader();
+        //public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
+        //{
+        //    using (var connection = new SQLiteConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        var command = connection.CreateCommand();
+        //        command.CommandText = "SELECT * FROM FoodItems";
+        //        SQLiteDataReader reader = command.ExecuteReader();
 
-                List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
+        //        List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
 
-                while (reader.Read())
-                {
-                    allFoodItems.Add(new FoodItemsGet
-                    {
-                        foodId = reader.GetInt32(0),
-                        foodName = reader[1].ToString(),
-                        allergens = reader[2].ToString().Split(",")
-                    });
-                }
-                connection.Close();
+        //        while (reader.Read())
+        //        {
+        //            allFoodItems.Add(new FoodItemsGet
+        //            {
+        //                foodId = reader.GetInt32(0),
+        //                foodName = reader[1].ToString(),
+        //                allergens = reader[2].ToString().Split(",")
+        //            });
+        //        }
+        //        connection.Close();
 
-                return allFoodItems;
-            }
-        }
+        //        return allFoodItems;
+        //    }
+        //}
 
-        public async Task<List<FoodItemsGet>> GetFoodItemsFromSpoonacular()
+        //public async Task<List<FoodItemsGet>> GetFoodItemsFromSpoonacular()
+        public async Task<Root> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
             string api_key = Environment.GetEnvironmentVariable("api_key");
-            string api_parameters = "&query=\"meal\"&minCalories=100&addProductInformation=True&number=10";
+            string api_parameters = "&query=meal&minCalories=100&addProductInformation=True&number=10";
 
             HttpClient client = new HttpClient();
 
@@ -114,9 +117,10 @@ namespace Server.Repositories
 
             string requestBody = await response.Content.ReadAsStringAsync();
 
-            List<FoodItemsGet> foodItems = JsonSerializer.Deserialize<List<FoodItemsGet>>(requestBody);
+            var rootObject = JsonSerializer.Deserialize<Root>(requestBody);
+            //List<FoodItemsGet> foodItems = JsonSerializer.Deserialize<List<FoodItemsGet>>(requestBody);
 
-            return foodItems;
+            return rootObject;
         }
     }
 }
