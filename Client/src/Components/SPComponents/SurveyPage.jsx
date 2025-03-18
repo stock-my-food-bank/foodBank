@@ -8,6 +8,8 @@ import Comments from './Comments';
 import Logo from '../Logo';
 //Imported Pagination 
 import Pagination from '../Pagination';
+//Imported PopUp 
+import Popup from './Popup';
 
 function SurveyPage() {
   return (
@@ -47,6 +49,10 @@ function SurveyPage() {
         {/* Submit Button for Survey Page, styled to be in the middle of page */}
         <div className="d-flex justify-content-center ">
             <BasicButton text="Submit"/>
+        </div>
+        {/* Popup modal can alter header and text using props to show error and submitted popup when submit button is clicked  */}
+        <div>
+            <Popup/>
         </div>
 
         {/* Footer for view 1 survey page */}
