@@ -23,14 +23,14 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("/api/FoodItems")]
-        public ActionResult<FoodItemsFull> GetAllFoodItemsFromSpoonacular()
+        public Task<ActionResult<FoodItemsFull>> GetAllFoodItemsFromSpoonacular()
         {
             var foodItems = _foodItemsRepository.GetFoodItemsFromSpoonacular();
             if (foodItems == null)
             {
                 return NotFound();
             }
-            return Ok(foodItems.Result);
+            return Ok(foodItems);
         }
     }
 }
