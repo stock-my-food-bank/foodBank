@@ -30,7 +30,7 @@ function SurveyPage() {
         </h1>
 
         {/* Container that hold view 1 survey page food items */}
-        <div className="Container-md bg-info">
+        <div className="Container-md Stock-Color">
             <FoodItems/>
         </div>
         {/* Pagination  */}
