@@ -27,7 +27,7 @@ function App() {
         {/* Root path is Survey Page */}
         <Route path="/" element={<SurveyPage/>}/>
         {/* Lowercase path name shown to user in url, path to ResultsPage */}
-        <Route path="/results" elements={<ResultsPage/>}/>
+        <Route path="/results" element={<ResultsPage/>}/>
       </Routes>
     </BrowserRouter>
       

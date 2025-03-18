@@ -1,3 +1,6 @@
+// Needed for routes as we are importing from the library
+import { Link } from 'react-router-dom';
+
 //Nyambura --Imported Basic Button Styling  
 import BasicButton from '../BasicButton'
 //Nyambura --Imported Food Item list 
@@ -10,6 +13,7 @@ import Logo from '../Logo';
 import Pagination from '../Pagination';
 
 function SurveyPage() {
+    
   return (
     
   
@@ -46,7 +50,7 @@ function SurveyPage() {
 
         {/* Submit Button for Survey Page, styled to be in the middle of page */}
         <div className="d-flex justify-content-center ">
-            <BasicButton text="Submit"/>
+          <Link to="/results"> <BasicButton text="Submit"/></Link>
         </div>
 
         {/* Footer for view 1 survey page */}
