@@ -1,4 +1,5 @@
-﻿using Server.Controllers;
+﻿using DotNetEnv;
+using Server.Controllers;
 
 namespace Server
 {
@@ -6,6 +7,8 @@ namespace Server
     {
         public static void Main(string[] args)
         {
+            Env.Load();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

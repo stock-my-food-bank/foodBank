@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.Security.Policy;
+using System.Text.Json;
 using Server.Models;
 
 namespace Server.Repositories
@@ -51,7 +53,7 @@ namespace Server.Repositories
             return text;
         }
 
-        public FoodItemsGet GetOneFoodItem(int foodId)
+        public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -65,16 +67,15 @@ namespace Server.Repositories
 
                 while (reader.Read())
                 {
-                    foodItem.foodId = foodId;
-                    foodItem.foodName = reader[2].ToString();
-                    foodItem.allergens = reader[3].ToString().Split(",");
+                    foodItem.id = foodId;
+                    foodItem.title = reader[2].ToString();
                 }
                 connection.Close();
                 return foodItem;
             }
         }
 
-        public List<FoodItemsGet> GetAllFoodItems()
+        public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -89,15 +90,31 @@ namespace Server.Repositories
                 {
                     allFoodItems.Add(new FoodItemsGet
                     {
-                        foodId = reader.GetInt32(0),
-                        foodName = reader[1].ToString(),
-                        allergens = reader[2].ToString().Split(",")
+                        id = reader.GetInt32(0),
+                        title = reader[1].ToString(),
                     });
                 }
                 connection.Close();
 
                 return allFoodItems;
             }
+        }
+
+        public async Task<FoodItemsBasic> GetFoodItemsFromSpoonacular()
+        {
+            string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
+            string api_key = Environment.GetEnvironmentVariable("api_key");
+            string api_parameters = "&query=\"meal\"&minCalories=100&number=10";
+
+            var client = new HttpClient();
+
+            var response = await client.GetAsync(api_url + api_key + api_parameters);
+
+            string requestBody = await response.Content.ReadAsStringAsync();
+
+            var foodItems = JsonSerializer.Deserialize<FoodItemsBasic>(requestBody);
+
+            return foodItems;
         }
     }
 }
