@@ -15,7 +15,12 @@ import Pagination from '../Pagination';
 import Popup from './Popup';
 
 function SurveyPage() {
-    
+
+    //useEffect
+
+    //popup controls
+
+    // submit handler (votes & comment)
   return (
     
   
@@ -37,7 +42,9 @@ function SurveyPage() {
 
         {/* Container that hold view 1 survey page food items */}
         <div className="Container-md Stock-Color">
-            <FoodItems/>
+            <FoodItems
+            _submitHandler={submitHandler}
+            />
         </div>
         {/* Pagination  */}
         <div>
