@@ -15,11 +15,11 @@ function FoodItems (props) {
                         foodItemList = {_foodItemList}
                         columnType ="foodItems"
                     />
-                    <SPColumn
+                    {/* <SPColumn
                         header = "Would you select this item during a visit?"
                         foodItemList = {_foodItemList}
                         columnType = "buttons"
-                    />
+                    /> */}
                 </div>
             </div> 
         </>

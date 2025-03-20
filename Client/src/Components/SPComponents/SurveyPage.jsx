@@ -24,7 +24,7 @@ function SurveyPage() {
   return (
     
   
-    <div className="Container-fluid"> 
+    <div className="Container-fluid "> 
         {/* Header  */}
        <div>
             <Logo/>
@@ -46,7 +46,7 @@ function SurveyPage() {
             _submitHandler={submitHandler}
             />
         </div>
-        {/* Pagination  */}
+        {/* Pagination - SM removing for now for prototype */}
         <div>
             <Pagination />
 
@@ -69,9 +69,7 @@ function SurveyPage() {
         {/* Footer for view 1 survey page */}
         <div>
             <Logo />
-       </div>
-           
-    
+       </div>              
     </div>
     
     

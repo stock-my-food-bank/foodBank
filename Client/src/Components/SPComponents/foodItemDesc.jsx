@@ -11,6 +11,14 @@ function foodItemDesc (props) {
                 alt={foodItem.title}
                 />
             </div> 
+            <div className="ms-2 me-auto">
+                <div className="fw-bold"> 
+                    FoodItemDesc
+                </div>
+                <p>
+                    Description
+                </p>
+            </div>
         </div>
     );
 }
