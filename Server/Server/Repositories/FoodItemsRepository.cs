@@ -53,54 +53,55 @@ namespace Server.Repositories
             return text;
         }
 
-        public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
-                command.Parameters.AddWithValue("@foodId", foodId);
-                SQLiteDataReader reader = command.ExecuteReader();
+        //public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
+        //{
+        //    using (var connection = new SQLiteConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        var command = connection.CreateCommand();
+        //        command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
+        //        command.Parameters.AddWithValue("@foodId", foodId);
+        //        SQLiteDataReader reader = command.ExecuteReader();
 
-                FoodItemsGet foodItem = new FoodItemsGet();
+        //        FoodItemsGet foodItem = new FoodItemsGet();
 
-                while (reader.Read())
-                {
-                    foodItem.id = foodId;
-                    foodItem.title = reader[2].ToString();
-                }
-                connection.Close();
-                return foodItem;
-            }
-        }
+        //        while (reader.Read())
+        //        {
+        //            foodItem.id = foodId;
+        //            foodItem.title = reader[2].ToString();
+        //        }
+        //        connection.Close();
+        //        return foodItem;
+        //    }
+        //}
 
-        public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM FoodItems";
-                SQLiteDataReader reader = command.ExecuteReader();
+        //public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
+        //{
+        //    using (var connection = new SQLiteConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        var command = connection.CreateCommand();
+        //        command.CommandText = "SELECT * FROM FoodItems";
+        //        SQLiteDataReader reader = command.ExecuteReader();
 
-                List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
+        //        List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
 
-                while (reader.Read())
-                {
-                    allFoodItems.Add(new FoodItemsGet
-                    {
-                        id = reader.GetInt32(0),
-                        title = reader[1].ToString(),
-                    });
-                }
-                connection.Close();
+        //        while (reader.Read())
+        //        {
+        //            allFoodItems.Add(new FoodItemsGet
+        //            {
+        //                id = reader.GetInt32(0),
+        //                title = reader[1].ToString(),
+        //            });
+        //        }
+        //        connection.Close();
 
-                return allFoodItems;
-            }
-        }
+        //        return allFoodItems;
+        //    }
+        //}
 
-        public async Task<FoodItemsBasic> GetFoodItemsFromSpoonacular()
+
+        public async Task<List<Product>> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
             string api_key = Environment.GetEnvironmentVariable("api_key");
@@ -114,7 +115,7 @@ namespace Server.Repositories
 
             var foodItems = JsonSerializer.Deserialize<FoodItemsBasic>(requestBody);
 
-            return foodItems;
+            return foodItems.products;
         }
     }
 }

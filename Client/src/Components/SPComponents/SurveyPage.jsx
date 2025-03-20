@@ -28,7 +28,7 @@ function SurveyPage() {
     }, []);
 
     async function GetFoodList(){
-        const url = 'htts://localhost:7183/api/FoodItems';
+        const url = 'https://localhost:7183/api/FoodItems';
         try {
             const response = await fetch(url);
             if(!response.ok){
@@ -36,7 +36,7 @@ function SurveyPage() {
             }
             const json = await response.json();
             setFoodItemsList(json);
-            console.log(foodItemList);
+            console.log("foodItemList", foodItemList);
         } catch (error){
             console.error(error.message);
         }

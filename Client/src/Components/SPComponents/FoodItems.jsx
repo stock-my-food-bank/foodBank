@@ -1,6 +1,6 @@
 import SPColumn from "./SPColumn";
 
-function FoodItems (foodItemList) {
+function FoodItems ({foodItemList}) {
 
     return (
         <>
@@ -11,14 +11,14 @@ function FoodItems (foodItemList) {
                         <SPColumn
                             header = {"Items being considered by the foodbank:"}
                             columnType ={"foodItems"}
-                            foodItemList={FoodItemsList}
+                            foodItemList={foodItemList}
                         />
                     </div>
                     <div className="col p-0">
                         <SPColumn
                             header = "Would you select this item during a visit?"
                             columnType = "buttons"
-                            foodItemList={FoodItemsList}
+                            foodItemList={foodItemList}
                         />
                     </div>
                 </div>
