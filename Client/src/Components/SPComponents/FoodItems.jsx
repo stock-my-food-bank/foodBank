@@ -1,25 +1,26 @@
 import SPColumn from "./SPColumn";
 
-function FoodItems (props) {
-    const [submitHandler] = props
-         //call to get foodItem List
-
+function FoodItems (foodItemList) {
 
     return (
         <>
             <div class="container-fluid ">
     
-                <div className="row align-items-start p-5 pb-0">
-                    <SPColumn
-                        header = "Items being considered by the foodbank:"
-                        foodItemList = {_foodItemList}
-                        columnType ="foodItems"
-                    />
-                    {/* <SPColumn
-                        header = "Would you select this item during a visit?"
-                        foodItemList = {_foodItemList}
-                        columnType = "buttons"
-                    /> */}
+                <div className="row align-items-start p-4 pb-4">
+                    <div className="col p-0">
+                        <SPColumn
+                            header = {"Items being considered by the foodbank:"}
+                            columnType ={"foodItems"}
+                            foodItemList={FoodItemsList}
+                        />
+                    </div>
+                    <div className="col p-0">
+                        <SPColumn
+                            header = "Would you select this item during a visit?"
+                            columnType = "buttons"
+                            foodItemList={FoodItemsList}
+                        />
+                    </div>
                 </div>
             </div> 
         </>
