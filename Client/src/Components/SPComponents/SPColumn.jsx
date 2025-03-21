@@ -1,31 +1,31 @@
 import SPRow from "./SPRow";
 
-function SPColumn ({header, columnType, foodItemList}){
-    // const [rowItem, setRowItem] = useState();
-
-    const OnNewFoodItem = () => {
-        
-    };
-
-
+function SPColumn ({header, columnType, foodItemList, numbered }){
+    const List = numbered ? OrderedList : UnorderedList;
     return (
-        <div className="card card-body flex-fill .bg-secondary-subtle">
+        <div className="card card-body flex-fill">
             <div className="card-header row-1">
                 <h5>{header}</h5>
-
             </div>
-            {/* <div className="row-5 list-group list-group-numbered">
-                {foodItemList.map((foodItem)=>{
+            <List className={`list-group ${numbered ? 'list-group-numbered' : ''}`}>
+                {Array.isArray(foodItemList) ? foodItemList.map((foodItem) => {
                     return( 
-                        <div>
-                            <SPRow
-                            // foodSelectionRowInput = {rowItem}           
-                            />
-                        </div>
+                        <SPRow
+                            foodItem = {foodItem}
+                            rowType = {columnType}           
+                        />
                     );
-                })}
-            </div> */}
+                }) : <p>No items available</p>}
+            </List>
         </div>
     );
 }
 export default SPColumn;
+
+const OrderedList = ({ children, ...props }) => {
+    return <ol {...props}>{children}</ol>;
+}
+
+const UnorderedList = ({ children, ...props }) => {
+    return <ul {...props}>{children}</ul>;
+}

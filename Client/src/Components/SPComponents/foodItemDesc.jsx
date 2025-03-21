@@ -1,28 +1,20 @@
-function foodItemDesc (props) {
-    const [foodItem]=props;
+import FoodImg from "./FoodImg";
+
+function FoodItemDesc ({foodItemId, foodItemTitle, foodItemImg}) {
+    
     return(
-        <div>
-           <div className="ms-2 me-auto">
-                <div className="fw-bold"> 
-                    {foodItem.title}
-                </div>
-                <img
-                src={image}
-                alt={foodItem.title}
+        <div className="d-flex justify-content-around flex-column flex-fill">
+            <div>{foodItemTitle}</div>
+            <div> 
+                <FoodImg
+                    img={foodItemImg}
+                    foodItemTitle={foodItemTitle}
                 />
-            </div> 
-            <div className="ms-2 me-auto">
-                <div className="fw-bold"> 
-                    FoodItemDesc
-                </div>
-                <p>
-                    Description
-                </p>
             </div>
         </div>
     );
 }
-export default foodItemDesc;
+export default FoodItemDesc;
 
 // {/* Nyambura Column 1 --Food items, Card Bootstrap */}
 // <div className="card col-6 d-flex ">

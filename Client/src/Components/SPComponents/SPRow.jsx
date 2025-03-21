@@ -1,23 +1,28 @@
-function SPRow (props){
-    const [count, foodSelectionRowInput, submitHandler] = props
+import { useState } from "react";
+import FoodItemDesc from "./foodItemDesc";
+import SurveyButton from "./surveyButton";
 
-    return (
-        <div className="row .bg-warning-subtle" >
-            {/* <div className="col-2">{count}</div> */}
-            <div className="col-6 d-flex"> 
-                {foodSelectionRowInput}
-            </div>
-            <div className="ms-2 me-auto">
-                <div className="fw-bold"> 
-                    FoodItemDesc
-                </div>
-                <p>
-                    Description
-                </p>
-            </div>
-        </div>
-    )
+function SPRow ({foodItem, rowType}){
+    if (rowType === "foodItems"){
+        return (
+            <li className="list-group-item d-flex align-items-start list-item">
+                <FoodItemDesc 
+                    foodItemId = {foodItem.id}
+                    foodItemTitle = {foodItem.title}
+                    foodItemImg = {foodItem.image}                
+                />
+            </li>
+        );
+    }
+    if (rowType === "buttons"){
+        return(
+            <li className="list-group-item list-group-item-action list-item">
+                <SurveyButton 
+                    foodItemId={foodItem.id}
+                />
+            </li>
+        );
+    }
 }
-
 export default SPRow;
 

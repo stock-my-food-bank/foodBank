@@ -37,3 +37,12 @@
   color: #000;
   border-radius: 10px;
 }
+
+.list-item {
+  height: 8rem;
+} 
+
+.foodImg{
+  max-height: 100%;
+  aspect-ratio: 1;
+}

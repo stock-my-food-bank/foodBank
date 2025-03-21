@@ -12,7 +12,18 @@ import Logo from '../Logo';
 import Pagination from '../Pagination';
 //Imported PopUp 
 import Popup from './Popup';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+
+const SurveyContext = createContext();
+
+export const SurveyProvider = ({children}) => {
+    const [response, setResponse] = useState({});
+    return( 
+        <SurveyContext.Provider value={{response, setResponse}}>
+            {children}
+        </SurveyContext.Provider>
+    );
+}
 
 function SurveyPage() {
     const [foodItemList, setFoodItemsList] = useState();
@@ -32,18 +43,18 @@ function SurveyPage() {
         try {
             const response = await fetch(url);
             if(!response.ok){
-                throw new Error(`Response Status: ${repsonse.status}`);
+                throw new Error(`Response Status: ${response.status}`);
             }
             const json = await response.json();
             setFoodItemsList(json);
-            console.log("foodItemList", foodItemList);
         } catch (error){
             console.error(error.message);
         }
     }
 
-    // async function GetComment = async() => {}
+        //async function CreateComment
     
+
 
     // const SubmitSurveyHandler = async(comment, indivSurveyResults) =>{
     //     const response = await fetch('https://localhost:7183/api/FoodItems', {

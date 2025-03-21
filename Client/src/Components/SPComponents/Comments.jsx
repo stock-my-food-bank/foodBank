@@ -1,5 +1,7 @@
 //Nyambura Comments section for view 1 
-function Comments () {
+function Comments ({}) {
+
+    //pull useState set from above to grab comment
     return (
         <>
             
