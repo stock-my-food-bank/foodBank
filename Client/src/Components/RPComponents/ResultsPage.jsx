@@ -32,9 +32,8 @@ function ResultsPage() {
                 <h1 id="main-title">
                     StockMyFoodBank
                 </h1>
-
                 
-                <section className="Container-fluid bg-info ms-5 me-5">
+                <section className="Container-fluid Stock Color ms-5 me-5">
                     <h2 id="results-heading">
                         Results
                     </h2>
