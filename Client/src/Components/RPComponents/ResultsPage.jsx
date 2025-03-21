@@ -31,7 +31,7 @@ function ResultsPage() {
             </h1>
 
             
-            <div className="Container-fluid bg-info ms-5 me-5">
+            <div className="Container-fluid Stock-Color ms-5 me-5">
                 <h2>
                     Results
                 </h2>
