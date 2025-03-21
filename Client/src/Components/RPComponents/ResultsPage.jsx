@@ -14,69 +14,74 @@ function ResultsPage() {
     console.log("test connection")
     return (
         <div className="Container-fluid"> 
-            {/* Header  */}
-            <div>
+            {/* Header with logo */}
+            {/* Accessibility -Semantic html text header */}
+            <header>
                 <Logo/>
-            </div>
+            </header>
 
             {/* Back Button for Results Page */}
-            <div className="d-flex mt-2 ms-5">
-                <BasicButton text="Back"/>
-            </div>
-            
+            {/* Accessibility -role added for navigation, with aria label*/}
+            <section className="d-flex mt-2 ms-5" role="navigation">
+                <BasicButton text="Back" aria-label="Go Back to Previous Page"/>
+            </section>
 
-            {/* StockMyFoodBank Header  */}
-            <h1>
-                StockMyFoodBank
-            </h1>
-
-            
-            <div className="Container-fluid Stock-Color ms-5 me-5">
-                <h2>
-                    Results
-                </h2>
-
-                {/*Table that will display individual item results in table format */}
-                <div className="Container-md bg-light me-5 ms-5">
-                    <table class="table table-bordered">
-                        <thead>
-                            
-                            <th>
-                                Item1
-
-                            </th>
-                            
-                            
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">Yes</th>
-                                <td>#</td>
-                            
-                            </tr>
-                            <tr>
-                                <th scope="row">No</th>
-                                <td>#</td>
-                            
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-
-                </div> 
-                <div>
-                    <RPComments />
-                </div>
-
+            {/* Accessibility --Main Content Section, semantic html for headers */}
+            <main>
+                {/* StockMyFoodBank Header  */}
+                <h1 id="main-title">
+                    StockMyFoodBank
+                </h1>
                 
-            </div> 
+                <section className="Container-fluid Stock Color ms-5 me-5">
+                    <h2 id="results-heading">
+                        Results
+                    </h2>
+
+                    {/*Table that will display individual item results in table format */}
+                    {/* Accessibility --semantic html for section, caption for table and Aria roles added to table as well as keyboard navigation using tab */}
+                    <section className="Container-md bg-light me-5 ms-5">
+                        <table class="table table-bordered" aria-describedby="results-heading" tabIndex="0">
+                            <caption tabIndex="0">Results of the StockMyFoodBank survey of items being considered by the foodbank</caption>
+                            <thead>
+                                
+                                <th tabIndex="0">
+                                    Item1
+
+                                </th>
+                                
+                                
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" tabIndex="0">Yes</th>
+                                    <td tabIndex="0">#</td>
+                                
+                                </tr>
+                                <tr>
+                                    <th scope="row" tabIndex="0">No</th>
+                                    <td tabIndex="0">#</td>
+                                
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+
+                    </section> 
+                    
+                    <div>
+                        <RPComments />
+                    </div>
+
+                    
+                </section> 
             
-            
+            </main>
 
             {/* Footer for view 2 Results page */}
-            <div>
+            <footer>
                 <Logo />
-            </div>
+            </footer>
 
         </div>        
     );
