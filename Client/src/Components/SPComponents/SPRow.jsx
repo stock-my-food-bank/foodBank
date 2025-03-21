@@ -2,6 +2,7 @@ import { useState } from "react";
 import FoodItemDesc from "./foodItemDesc";
 import SurveyButton from "./surveyButton";
 
+//Murphree - column type set by prop, information passed through as needed
 function SPRow ({foodItem, rowType}){
     if (rowType === "foodItems"){
         return (

@@ -1,5 +1,7 @@
 import SPRow from "./SPRow";
 
+
+//Murphree - List() sets if numbers needed, maps through the foodItem list to create as many rows as foodItems pulled from API, no items comment given if empty array
 function SPColumn ({header, columnType, foodItemList, numbered }){
     const List = numbered ? OrderedList : UnorderedList;
     return (
@@ -22,10 +24,12 @@ function SPColumn ({header, columnType, foodItemList, numbered }){
 }
 export default SPColumn;
 
+//Murphree - used for left column to add numbers
 const OrderedList = ({ children, ...props }) => {
     return <ol {...props}>{children}</ol>;
 }
 
+//Murphree - used for right column to not double on numbering
 const UnorderedList = ({ children, ...props }) => {
     return <ul {...props}>{children}</ul>;
 }

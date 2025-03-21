@@ -1,5 +1,7 @@
 import FoodImg from "./FoodImg";
 
+
+//Murphree - Repeatable component to display the left side of the surveyPage, listing foodItems
 function FoodItemDesc ({foodItemId, foodItemTitle, foodItemImg}) {
     
     return(
@@ -15,29 +17,3 @@ function FoodItemDesc ({foodItemId, foodItemTitle, foodItemImg}) {
     );
 }
 export default FoodItemDesc;
-
-// {/* Nyambura Column 1 --Food items, Card Bootstrap */}
-// <div className="card col-6 d-flex ">
-// <div className="card-header">
-//         Items being considered by the foodbank:
-// </div>
-
-// <div className="card-body flex-fill">
-//     {/* Nyambura -- Ordered list that holds every food item that will be considered, List Group Bootstrap  */}
-//     <ol className="list-group list-group-numbered">
-
-//         {/* Individual Food List Item example  */}
-//         <li className="list-group-item d-flex justify-content-between align-items-start">
-//             <div className="ms-2 me-auto">
-//                 <div className="fw-bold"> 
-//                     Item 1
-//                 </div>
-//                 <p>
-//                     Description
-//                 </p>
-//             </div>
-//         </li>
-            
-//     </ol>
-// </div>
-// </div>

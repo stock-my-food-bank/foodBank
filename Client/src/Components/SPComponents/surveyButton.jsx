@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { SurveyContext } from "./SurveyPage";
 
+// Murphree - response used to take in information from other components on SurveyPage
 function SurveyButton ({foodItemId}) {
     const {response, setResponse} = useContext(SurveyContext);
 

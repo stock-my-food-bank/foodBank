@@ -1,3 +1,5 @@
+
+//Murphree - upper containter and using SPColumn component for repeatable formatting -- columnType determines what component to use in SPRow
 import SPColumn from "./SPColumn";
 
 function FoodItems ({foodItemList}) {

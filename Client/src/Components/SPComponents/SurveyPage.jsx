@@ -13,8 +13,11 @@ import Popup from './Popup';
 import { createContext, useEffect, useState } from 'react';
 import SubmitButton from './SubmitButton';
 
+/*
+Murphree - Context allows for information to be collected and passed through a select set of components
+    - response context starts here & resultsPage in GetFoodList to give foodItem info
+*/
 export const SurveyContext = createContext();
-
 export const SurveyProvider = ({children}) => {
     const [response, setResponse] = useState({});
     return( 
@@ -32,7 +35,8 @@ function SurveyPage() {
     /*working call to server and sqlite info -Sarah
     always add a , [] as second param in useeffect so it's only called once
     */
-   //Murphree - calls for foodItems
+
+   //Murphree - calls for foodItems, sets info into response, alert popup of error
     useEffect(()=>{
         GetFoodList();
     }, []);
@@ -47,23 +51,10 @@ function SurveyPage() {
             const json = await response.json();
             setFoodItemsList(json);
         } catch (error){
-            console.error(error.message);
+            console.log("surveypage error message", error.message)
+            alert(error.message);
         }
     }
-
-        
-
-
-    // const SubmitSurveyHandler = async(comment, indivSurveyResults) =>{
-    //     const response = await fetch('https://localhost:7183/api/FoodItems', {
-    //         method: "POST",
-    //         body: JSON.stringify({key: "example"}),
-    //         //
-    //         }
-    //     )
-    // }
-
-    //popup controls
 
     return (
     
@@ -91,11 +82,11 @@ function SurveyPage() {
                     // {/* // _submitHandler={submitHandler} */}
                     />
                 </div>
-                {/* Pagination - SM removing for now for prototype */}
+                {/* Pagination - SM removing for now for prototype
                 <div>
                     <Pagination />
 
-                </div>
+                </div> */}
 
                 {/* Comments section added for view 1 survey page  */}
                 <div>

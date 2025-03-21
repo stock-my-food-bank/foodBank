@@ -1,3 +1,5 @@
+
+//Murphree - handles consistant formatting of foodItem images, title is for alt tag for screen readers
 function FoodImg ({img, foodItemTitle}) {
     
     return (
