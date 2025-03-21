@@ -1,5 +1,5 @@
 function FoodImg ({img, foodItemTitle}) {
-
+    
     return (
         <img 
             src={img}

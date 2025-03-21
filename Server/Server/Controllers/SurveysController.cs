@@ -9,19 +9,36 @@ namespace Server.Controllers
     public class SurveysController : ControllerBase
     {
         private SurveysRepository _surveysRepository;
+        private CommentsRepository _commentsRepository;
+        private UsersRepository _usersRepository;
         public SurveysController()
         {
             _surveysRepository = new SurveysRepository();
+            _commentsRepository = new CommentsRepository();
+            _usersRepository = new UsersRepository();
         }
 
         [HttpPost]
-        public IActionResult Post(int userId, int commentId)
+        public IActionResult Post([FromBody] string comment)
         {
-            SurveysPost newSurvey = new SurveysPost(userId, commentId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            CommentsPost newComment = new CommentsPost(comment);
+            int? commentId = _commentsRepository.AddComment(newComment);
+
+            if (commentId == null) {
+                throw new Exception("failed to save comment.");
+            }
+            int? newUserId = _usersRepository.InsertUser("user");
+
+            if (newUserId == null)
+            {
+                throw new Exception("failed to save user");
+            }
+            SurveysPost newSurvey = new SurveysPost((int)newUserId, (int)commentId);
+            
             int? surveyID =_surveysRepository.SubmitSurvey(newSurvey);
             return Ok(surveyID);
         }
