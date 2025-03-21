@@ -158,8 +158,9 @@ namespace Server.Repositories
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText =
-                    @"SELECT * 
+                    @"SELECT foodItemId, SUM(voteCountYes) as voteCountYes, SUM(voteCountNo)
                     FROM SURVEYFOODITEMRESULTS
+                    GROUP BY foodItemId
                     ORDER BY voteCountYes DESC, voteCountNo ASC";
                 var reader = command.ExecuteReader();
                 var surveyFoodItemResults = new List<SurveyFoodItemResultsGet>();
@@ -168,13 +169,10 @@ namespace Server.Repositories
                 {
                     surveyFoodItemResults.Add(new SurveyFoodItemResultsGet
                     {
-                        surveyFoodItemResultsId = reader.GetInt32(0),
                         voteCountYes = reader.GetInt32(1),
                         voteCountNo = reader.GetInt32(2),
                         rank = rank++,
-                        dateTime = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(4)).DateTime,
-                        foodItemId = reader.GetInt32(5),
-                        surveyId = reader.GetInt32(6)
+                        foodItemId = reader.GetInt32(0),
                     });
                 }
                 connection.Close();
