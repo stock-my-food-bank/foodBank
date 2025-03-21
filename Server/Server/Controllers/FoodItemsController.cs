@@ -14,13 +14,7 @@ namespace Server.Controllers
             _foodItemsRepository = new FoodItemsRepository();
         }
 
-        [HttpGet("count")]
-        public IActionResult Get()
-        {
-            var count = _foodItemsRepository.GetCount();
-            return Ok(count);
-        }
-
+        // Muphree - gets foodItems from Spoonacular, no input needed returns list of foodItems using foodItemsBasic model
         [HttpGet]
         [Route("/api/FoodItems")]
         public ActionResult<FoodItemsBasic> GetAllFoodItemsFromSpoonacular()
@@ -31,6 +25,14 @@ namespace Server.Controllers
                 return NotFound();
             }
             return Ok(foodItems.Result);
+        }
+
+        //for testing connection purposes
+        [HttpGet("count")]
+        public IActionResult Get()
+        {
+            var count = _foodItemsRepository.GetCount();
+            return Ok(count);
         }
     }
 }

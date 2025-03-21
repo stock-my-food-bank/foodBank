@@ -10,6 +10,8 @@ namespace Server.Repositories
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
+
+        //Murphree - builds the table
         public FoodItemsRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
@@ -30,6 +32,7 @@ namespace Server.Repositories
             }
         }
 
+        //Murphree - for testing connection
         public int GetCount()
         {
             using (var connection = new SQLiteConnection(_connectionString))
@@ -53,6 +56,7 @@ namespace Server.Repositories
             return text;
         }
 
+        //commented code is for if foodItems are stored in database after call to spoonacular api
         //public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
         //{
         //    using (var connection = new SQLiteConnection(_connectionString))
@@ -100,7 +104,7 @@ namespace Server.Repositories
         //    }
         //}
 
-
+        //Murphree - api key is in .env file and read through a library, connects to spoonacular api and gets a list of food items using List<prouct> from FoodItemsBasic
         public async Task<List<Product>> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";

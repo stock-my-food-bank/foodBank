@@ -7,6 +7,7 @@ namespace Server.Repositories
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
+        //creates the table
         public UsersRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
@@ -23,6 +24,7 @@ namespace Server.Repositories
             }
         }
 
+        //create a new user
         public int? InsertUser(string role)
         {
             int userId;
@@ -46,6 +48,7 @@ namespace Server.Repositories
             return userId;
         }
 
+        //get a user
         public UsersGet GetUser(int UserId)
         {
             UsersGet user = new UsersGet();
@@ -70,6 +73,7 @@ namespace Server.Repositories
             return user;
         }
 
+        //for initial testing connection purposes
         public int GetCount()
         {
             using (var connection = new SQLiteConnection(_connectionString))

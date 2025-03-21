@@ -18,6 +18,9 @@ namespace Server.Controllers
             _usersRepository = new UsersRepository();
         }
 
+        //Murphree - Creates a survey -- input is a new comment using the CommentsPost Model, output is the surveyId
+        // creates a new comment, then a new user, then a new survey
+        // user role is hardcoded for now
         [HttpPost]
         public IActionResult Post([FromBody] string comment)
         {

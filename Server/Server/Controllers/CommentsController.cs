@@ -14,6 +14,7 @@ namespace Server.Controllers
             _commentsRepository = new CommentsRepository();
         }
 
+        //Murphree - input is a new comment using the CommentsPost Model, output is the commentId
         [HttpPost]
         public IActionResult Post([FromBody] CommentsPost newComment)
         {
@@ -27,6 +28,7 @@ namespace Server.Controllers
             return Ok(commentId);
         }
 
+        //Murphree - no inputs needed, output is a list of comments using the CommentsGet Model 
         [HttpGet]
         [Route("/api/Comments")]
         public ActionResult<List <CommentsGet>> GetAllComments()

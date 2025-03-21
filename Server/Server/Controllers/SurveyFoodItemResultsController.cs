@@ -14,6 +14,7 @@ namespace Server.Controllers
             _surveyFoodItemResultsRepository = new SurveyFoodItemResultsRepository();
         }
 
+        //Murphree -adds a new vote to the database based on the surveyFoodItemResultsPost model and returns surveyResultId
         [HttpPost]
         public IActionResult Post([FromBody]SurveyFoodItemResultsPost surveyFoodItem)
         {
@@ -32,7 +33,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id}")] 
-        //FromBody will send info from response of form
+        //Murphree  - FromBody will send info from response of body not url param
         //expect from FE - clicking the yes or no increments result on FE and is sent as a whole to BE
         public IActionResult Put(int id, [FromBody] SurveyFoodItemResultsPut surveyFoodItemResult)
         {
@@ -41,6 +42,7 @@ namespace Server.Controllers
             return Ok();
         }
 
+        //Murphree - Get request to get all votes return using list of surveyFoodItemResultsGet model no inputs
         [HttpGet()]
         [Route("/api/SurveyFoodItemResults")]
         public ActionResult<List<SurveyFoodItemResultsGet>> GetVotes()

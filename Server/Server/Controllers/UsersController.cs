@@ -14,6 +14,7 @@ namespace Server.Controllers
             _usersRepository = new UsersRepository();
         }
 
+        //Murphree - creates a user -- input is a new user role, output is the userId
         [HttpPost]
         public IActionResult Post(string role)
         {
@@ -21,6 +22,7 @@ namespace Server.Controllers
             return Ok(userId);
         }
 
+        //Murphree - gets one User -- input is a userId, output is the user role & Id
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

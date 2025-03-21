@@ -90,8 +90,7 @@ namespace Server.Repositories
             return comments;
         }
 
-
-
+        //for testing connection initially
         public int GetCount()
         {
             using (var connection = new SQLiteConnection(_connectionString))

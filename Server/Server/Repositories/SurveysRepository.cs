@@ -7,6 +7,7 @@ namespace Server.Repositories
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
+        //creates the table
         public SurveysRepository()
         {
             using (var connection = new SQLiteConnection(_connectionString))
@@ -57,6 +58,7 @@ namespace Server.Repositories
             return surveyId;
         }
 
+        //for testing connection purposes
         public int GetCount()
         {
             using (var connection = new SQLiteConnection(_connectionString))
