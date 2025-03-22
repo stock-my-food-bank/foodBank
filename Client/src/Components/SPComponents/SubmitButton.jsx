@@ -19,32 +19,35 @@ function SubmitButton () {
 
     const onClickHandler = async(e) => {
         //post for comment and survey, returning surveyId
-        try { const res = await fetch('https://localhost:7183/api/Surveys', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"}, 
-            body: JSON.stringify(response.comment),
-        });
-
-        const surveyId = await res.json()
-
-        //Murphree map through vote results and do a post call for each vote 
-        Object.entries(response.voteResults).map(async ([fooditem, voteResult]) => {
-            const voteRes = await fetch('https://localhost:7183/api/SurveyFoodItemResults', {
+        try { 
+            const res = await fetch('https://localhost:7183/api/Surveys', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"}, 
-                body: JSON.stringify({
-                    voteCountYes: voteResult ? true : false,
-                    voteCountNo: voteResult === false ? true : false, 
-                    foodItemId: fooditem,
-                    surveyId: surveyId,
-                }),
+                body: JSON.stringify(response.comment),
+            });
+
+            const surveyId = await res.json()
+
+            //Murphree map through vote results and do a post call for each vote 
+            const results = Object.entries(response.voteResults).map(async ([fooditem, voteResult]) => {
+                const voteRes = await fetch('https://localhost:7183/api/SurveyFoodItemResults', {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"}, 
+                    body: JSON.stringify({
+                        voteCountYes: voteResult ? true : false,
+                        voteCountNo: voteResult === false ? true : false, 
+                        foodItemId: fooditem,
+                        surveyId: surveyId,
+                    }),
+                })
             })
-        })
-        //Murphree - resetting response to empty object to clear survey once submitted
-        setResponse({});
-        //Murphree - navigates to result after fetch calls complete
-        //Murphree - future iteration consider not rewriting response and having a count and if retry has already happened then overwrite data and ask user to re-enter info.
-        navigate('/results') 
+            //Murphree - by mapping it returns a promise, this awaits the promise to come back resolved
+            await Promise.all(results);
+            //Murphree - resetting response to empty object to clear survey once submitted
+            setResponse({});
+            //Murphree - navigates to result after fetch calls complete
+            //Murphree - future iteration consider not rewriting response and having a count and if retry has already happened then overwrite data and ask user to re-enter info.
+            navigate('/results') 
         } catch (error) {
             console.log("submitButtonError", error.message)
             // alert(error.message);

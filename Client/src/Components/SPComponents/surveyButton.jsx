@@ -14,9 +14,9 @@ function SurveyButton ({foodItemId}) {
             }
         })
     }
-    const yesActive = response.voteResults[foodItemId];
-    const noActive = response.voteResults[foodItemId] === false;
-    const skipActive = response.voteResults[foodItemId] === null;
+    const yesActive = response.voteResults? response.voteResults[foodItemId] : false;
+    const noActive = response.voteResults? response.voteResults[foodItemId] === false : false;
+    const skipActive = response.voteResults? response.voteResults[foodItemId] === null : false;
     return (
         <div className="d-flex flex-fill flex-column h-100 justify-content-center">
             <div className="btn-group" role="group" aria-label="Basic outlined example">

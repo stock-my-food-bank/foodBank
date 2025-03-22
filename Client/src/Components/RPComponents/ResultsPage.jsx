@@ -1,5 +1,5 @@
 //Nyambura --Results page
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 //logo imported 
 import Logo from "../Logo";
@@ -72,9 +72,11 @@ function ResultsPage() {
                 <Logo/>
             </div>
             {/* Back Button for Results Page */}
-            <div className="d-flex mt-2 ms-5">
-                <BasicButton text="Back"/>
-            </div>
+            <Link to="/" >
+                <div className="d-flex mt-2 ms-5">
+                    <BasicButton text="Back"/>
+                </div>
+            </Link>
             {/* StockMyFoodBank Header  */}
             <h1 style={{ marginTop: '-3.5rem' }}>
                 StockMyFoodBank
