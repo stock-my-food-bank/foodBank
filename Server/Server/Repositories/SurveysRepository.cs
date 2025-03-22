@@ -6,12 +6,19 @@ namespace Server.Repositories
 {
     public class SurveysRepository : ISurveysRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
+
+        //Murphree - overloading constructor so that it can be called without a connection string
+        public SurveysRepository() : this(_connectionString)
+        {
+        }
 
         //creates the table
-        public SurveysRepository()
+        public SurveysRepository( string connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            instanceConnectionString = connectionString;
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -33,7 +40,7 @@ namespace Server.Repositories
         {
             int surveyId;
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -62,7 +69,7 @@ namespace Server.Repositories
         //for testing connection purposes
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();

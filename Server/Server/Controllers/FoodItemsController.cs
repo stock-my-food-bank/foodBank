@@ -17,14 +17,14 @@ namespace Server.Controllers
         // Muphree - gets foodItems from Spoonacular, no input needed returns list of foodItems using foodItemsBasic model
         [HttpGet]
         [Route("/api/FoodItems")]
-        public ActionResult<FoodItemsBasic> GetAllFoodItemsFromSpoonacular()
+        public async Task<ActionResult<FoodItemsBasic>> GetAllFoodItemsFromSpoonacular()
         {
-            var foodItems = _foodItemsRepository.GetFoodItemsFromSpoonacular();
+            var foodItems = await _foodItemsRepository.GetFoodItemsFromSpoonacular();
             if (foodItems == null)
             {
                 return NotFound();
             }
-            return Ok(foodItems.Result);
+            return Ok(foodItems);
         }
 
         //for testing connection purposes

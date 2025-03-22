@@ -7,7 +7,7 @@ using Server.Interfaces;
 using Server.Models;
 using Xunit;
 
-namespace Tests
+namespace UnitTests
 {
     public class CommentsControllerTests
     {

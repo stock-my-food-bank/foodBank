@@ -6,12 +6,18 @@ namespace Server.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
+
+        public UsersRepository() : this(_connectionString)
+        {
+        }
 
         //creates the table
-        public UsersRepository()
+        public UsersRepository( string connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            instanceConnectionString = connectionString;
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -29,7 +35,7 @@ namespace Server.Repositories
         public int? InsertUser(string role)
         {
             int userId;
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -53,7 +59,7 @@ namespace Server.Repositories
         public UsersGet GetUser(int UserId)
         {
             UsersGet user = new UsersGet();
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -77,7 +83,7 @@ namespace Server.Repositories
         //for initial testing connection purposes
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();

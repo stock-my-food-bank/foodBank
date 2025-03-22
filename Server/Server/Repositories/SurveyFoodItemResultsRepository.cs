@@ -6,12 +6,19 @@ namespace Server.Repositories
 {
     public class SurveyFoodItemResultsRepository : ISurveyFoodItemResultsRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
+
+        //Murphree - overloading constructor so that it can be called without a connection string
+        public SurveyFoodItemResultsRepository() : this(_connectionString)
+        {
+        }
 
         //builds the table
-        public SurveyFoodItemResultsRepository()
+        public SurveyFoodItemResultsRepository(string connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            instanceConnectionString = connectionString;
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -34,7 +41,7 @@ namespace Server.Repositories
         //Create
         public int? InsertSurvey(SurveyFoodItemResultsInsert surveyFoodItemResult)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 int voteCountYes = surveyFoodItemResult.voteCountYes;
                 int voteCountNo = surveyFoodItemResult.voteCountNo;
@@ -83,7 +90,7 @@ namespace Server.Repositories
             int voteCountNo = surveyFoodItemResult.voteCountNo;
 
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -105,7 +112,7 @@ namespace Server.Repositories
         //getOne
         public SurveyFoodItemResultsGet GetOneResult(int surveyFoodItemResultsId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -154,7 +161,7 @@ namespace Server.Repositories
         //getAll
         public List<SurveyFoodItemResultsGet> GetVotes()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -184,7 +191,7 @@ namespace Server.Repositories
         //for testing purposes
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
