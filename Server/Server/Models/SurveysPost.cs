@@ -2,7 +2,6 @@
 {
     public class SurveysPost
     {
-        public int surveyId { get; set; }
         public int userId { get; set; }
         public int commentId { get; set; }
 

@@ -1,16 +1,24 @@
-﻿using Server.Models;
+﻿using Server.Interfaces;
+using Server.Models;
 using System.Data.SQLite;
 
 namespace Server.Repositories
 {
-    public class SurveyFoodItemResultsRepository
+    public class SurveyFoodItemResultsRepository : ISurveyFoodItemResultsRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
+
+        //Murphree - overloading constructor so that it can be called without a connection string
+        public SurveyFoodItemResultsRepository() : this(_connectionString)
+        {
+        }
 
         //builds the table
-        public SurveyFoodItemResultsRepository()
+        public SurveyFoodItemResultsRepository(string connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            instanceConnectionString = connectionString;
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -33,7 +41,7 @@ namespace Server.Repositories
         //Create
         public int? InsertSurvey(SurveyFoodItemResultsInsert surveyFoodItemResult)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 int voteCountYes = surveyFoodItemResult.voteCountYes;
                 int voteCountNo = surveyFoodItemResult.voteCountNo;
@@ -82,7 +90,7 @@ namespace Server.Repositories
             int voteCountNo = surveyFoodItemResult.voteCountNo;
 
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -104,7 +112,7 @@ namespace Server.Repositories
         //getOne
         public SurveyFoodItemResultsGet GetOneResult(int surveyFoodItemResultsId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -153,13 +161,14 @@ namespace Server.Repositories
         //getAll
         public List<SurveyFoodItemResultsGet> GetVotes()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText =
-                    @"SELECT * 
+                    @"SELECT foodItemId, SUM(voteCountYes) as voteCountYes, SUM(voteCountNo)
                     FROM SURVEYFOODITEMRESULTS
+                    GROUP BY foodItemId
                     ORDER BY voteCountYes DESC, voteCountNo ASC";
                 var reader = command.ExecuteReader();
                 var surveyFoodItemResults = new List<SurveyFoodItemResultsGet>();
@@ -168,13 +177,10 @@ namespace Server.Repositories
                 {
                     surveyFoodItemResults.Add(new SurveyFoodItemResultsGet
                     {
-                        surveyFoodItemResultsId = reader.GetInt32(0),
                         voteCountYes = reader.GetInt32(1),
                         voteCountNo = reader.GetInt32(2),
                         rank = rank++,
-                        dateTime = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(4)).DateTime,
-                        foodItemId = reader.GetInt32(5),
-                        surveyId = reader.GetInt32(6)
+                        foodItemId = reader.GetInt32(0),
                     });
                 }
                 connection.Close();
@@ -185,7 +191,7 @@ namespace Server.Repositories
         //for testing purposes
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();

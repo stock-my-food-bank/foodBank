@@ -1,18 +1,27 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Security.Policy;
+﻿using System.Data.SQLite;
 using System.Text.Json;
+using Server.Interfaces;
 using Server.Models;
 
 namespace Server.Repositories
 {
-    public class FoodItemsRepository
+    public class FoodItemsRepository : IFoodItemsRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
 
-        public FoodItemsRepository()
+        //Murphree - overloading constructor so that it can be called without a connection string
+        public FoodItemsRepository() : this(_connectionString)
+        { 
+        }
+
+
+        //Murphree - builds the table
+        public FoodItemsRepository(string connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            instanceConnectionString = connectionString;
+
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 /* only TEXT, BLOB, NULL, INTEGER, REAL as datatypes in SQLite
                  * will need to convert allergens TEXT to list of strings seperated by comma
@@ -23,16 +32,16 @@ namespace Server.Repositories
                 command.CommandText = 
                     @"CREATE TABLE IF NOT EXISTS FoodItems (
                         Id INTEGER PRIMARY KEY, 
-                        Name TEXT, 
-                        Allergens TEXT
+                        Name TEXT
                     )";
                 command.ExecuteNonQuery();
             }
         }
 
+        //Murphree - for testing connection
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -41,66 +50,8 @@ namespace Server.Repositories
             }
         }
 
-        private string ConvertArrayToString(string[] array)
-        {
-            string text = "";
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                text += array[i] + ",";
-            }
-
-            return text;
-        }
-
-        public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
-                command.Parameters.AddWithValue("@foodId", foodId);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                FoodItemsGet foodItem = new FoodItemsGet();
-
-                while (reader.Read())
-                {
-                    foodItem.id = foodId;
-                    foodItem.title = reader[2].ToString();
-                }
-                connection.Close();
-                return foodItem;
-            }
-        }
-
-        public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM FoodItems";
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
-
-                while (reader.Read())
-                {
-                    allFoodItems.Add(new FoodItemsGet
-                    {
-                        id = reader.GetInt32(0),
-                        title = reader[1].ToString(),
-                    });
-                }
-                connection.Close();
-
-                return allFoodItems;
-            }
-        }
-
-        public async Task<FoodItemsBasic> GetFoodItemsFromSpoonacular()
+        //Murphree - api key is in .env file and read through a library, connects to spoonacular api and gets a list of food items using List<prouct> from FoodItemsBasic
+        public async Task<List<Product>> GetFoodItemsFromSpoonacular()
         {
             string api_url = "https://api.spoonacular.com/food/products/search?apiKey=";
             string api_key = Environment.GetEnvironmentVariable("api_key");
@@ -114,7 +65,7 @@ namespace Server.Repositories
 
             var foodItems = JsonSerializer.Deserialize<FoodItemsBasic>(requestBody);
 
-            return foodItems;
+            return foodItems.products;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
-using Server.Repositories;
 
 namespace Server.Controllers
 {
@@ -8,29 +8,31 @@ namespace Server.Controllers
     [ApiController]
     public class FoodItemsController : ControllerBase
     {
-        private FoodItemsRepository _foodItemsRepository;
-        public FoodItemsController() 
+        private readonly IFoodItemsRepository _foodItemsRepository;
+        public FoodItemsController(IFoodItemsRepository foodItemRepository) 
         {
-            _foodItemsRepository = new FoodItemsRepository();
+            _foodItemsRepository = foodItemRepository;
         }
 
+        // Muphree - gets foodItems from Spoonacular, no input needed returns list of foodItems using foodItemsBasic model
+        [HttpGet]
+        [Route("/api/FoodItems")]
+        public async Task<ActionResult<FoodItemsBasic>> GetAllFoodItemsFromSpoonacular()
+        {
+            var foodItems = await _foodItemsRepository.GetFoodItemsFromSpoonacular();
+            if (foodItems == null)
+            {
+                return NotFound();
+            }
+            return Ok(foodItems);
+        }
+
+        //for testing connection purposes
         [HttpGet("count")]
         public IActionResult Get()
         {
             var count = _foodItemsRepository.GetCount();
             return Ok(count);
-        }
-
-        [HttpGet]
-        [Route("/api/FoodItems")]
-        public ActionResult<FoodItemsBasic> GetAllFoodItemsFromSpoonacular()
-        {
-            var foodItems = _foodItemsRepository.GetFoodItemsFromSpoonacular();
-            if (foodItems == null)
-            {
-                return NotFound();
-            }
-            return Ok(foodItems.Result);
         }
     }
 }

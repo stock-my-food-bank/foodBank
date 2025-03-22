@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
 using Server.Repositories;
 
@@ -8,20 +9,40 @@ namespace Server.Controllers
     [ApiController]
     public class SurveysController : ControllerBase
     {
-        private SurveysRepository _surveysRepository;
-        public SurveysController()
+        private readonly ISurveysRepository _surveysRepository;
+        private ICommentsRepository _commentsRepository;
+        private UsersRepository _usersRepository;
+        public SurveysController(ICommentsRepository commentsRepository, ISurveysRepository surveysRepository)
         {
-            _surveysRepository = new SurveysRepository();
+            _surveysRepository = surveysRepository;
+            _commentsRepository = commentsRepository;
+            _usersRepository = new UsersRepository();
         }
 
+        //Murphree - Creates a survey -- input is a new comment using the CommentsPost Model, output is the surveyId
+        // creates a new comment, then a new user, then a new survey
+        // user role is hardcoded for now
         [HttpPost]
-        public IActionResult Post(int userId, int commentId)
+        public IActionResult Post([FromBody] string comment)
         {
-            SurveysPost newSurvey = new SurveysPost(userId, commentId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            CommentsPost newComment = new CommentsPost(comment);
+            int? commentId = _commentsRepository.AddComment(newComment);
+
+            if (commentId == null) {
+                throw new Exception("failed to save comment.");
+            }
+            int? newUserId = _usersRepository.InsertUser("user");
+
+            if (newUserId == null)
+            {
+                throw new Exception("failed to save user");
+            }
+            SurveysPost newSurvey = new SurveysPost((int)newUserId, (int)commentId);
+            
             int? surveyID =_surveysRepository.SubmitSurvey(newSurvey);
             return Ok(surveyID);
         }

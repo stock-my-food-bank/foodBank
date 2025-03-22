@@ -1,15 +1,23 @@
-﻿using Server.Models;
+﻿using Server.Interfaces;
+using Server.Models;
 using System.Data.SQLite;
 
 namespace Server.Repositories
 {
-    public class CommentsRepository
+    public class CommentsRepository : ICommentsRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
 
-        public CommentsRepository()
+        //Murphree - overloading constructor so that it can be called without a connection string
+        public CommentsRepository() : this(_connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+        }
+
+        public CommentsRepository(string connectionString)
+        {
+            instanceConnectionString = connectionString;
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 /* only TEXT, BLOB, NULL, INTEGER, REAL as datatypes in SQLite
                  * for date time consider EPOCH for datetime into a num  https://www.epochconverter.com/ or STRING
@@ -36,7 +44,7 @@ namespace Server.Repositories
             int commentId;
             int dateTime = unchecked((int)DateTimeOffset.Now.ToUnixTimeSeconds()); // EPOCH for datetime into a num, is meant to have errors after 2038
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -67,7 +75,7 @@ namespace Server.Repositories
         public List<CommentsGet> GetAllComments()
         {
             var comments = new List<CommentsGet>();
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -90,11 +98,10 @@ namespace Server.Repositories
             return comments;
         }
 
-
-
+        //for testing connection initially
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();

@@ -1,15 +1,23 @@
-﻿using Server.Models;
+﻿using Server.Interfaces;
+using Server.Models;
 using System.Data.SQLite;
 
 namespace Server.Repositories
 {
-    public class UsersRepository
+    public class UsersRepository : IUsersRepository
     {
-        private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly static string _connectionString = "Data Source=foodbank.db; Version=3;";
+        private readonly string instanceConnectionString;
 
-        public UsersRepository()
+        public UsersRepository() : this(_connectionString)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+        }
+
+        //creates the table
+        public UsersRepository( string connectionString)
+        {
+            instanceConnectionString = connectionString;
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -23,10 +31,11 @@ namespace Server.Repositories
             }
         }
 
+        //create a new user
         public int? InsertUser(string role)
         {
             int userId;
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -46,10 +55,11 @@ namespace Server.Repositories
             return userId;
         }
 
+        //get a user
         public UsersGet GetUser(int UserId)
         {
             UsersGet user = new UsersGet();
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -70,9 +80,10 @@ namespace Server.Repositories
             return user;
         }
 
+        //for initial testing connection purposes
         public int GetCount()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(instanceConnectionString))
             {
                 connection.Open();
                 var command = connection.CreateCommand();

@@ -1,5 +1,6 @@
 ﻿using DotNetEnv;
-using Server.Controllers;
+using Server.Interfaces;
+using Server.Repositories;
 
 namespace Server
 {
@@ -20,10 +21,16 @@ namespace Server
                 });
             });
 
-            builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddControllers();
+            builder.Services.AddScoped<ICommentsRepository, CommentsRepository>();
+            builder.Services.AddScoped<ISurveysRepository, SurveysRepository>();
+            builder.Services.AddScoped<IFoodItemsRepository, FoodItemsRepository>();
+            builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+            builder.Services.AddScoped<ISurveyFoodItemResultsRepository, SurveyFoodItemResultsRepository>();
 
             var app = builder.Build();
 

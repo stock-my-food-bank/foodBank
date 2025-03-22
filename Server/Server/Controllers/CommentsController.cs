@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
-using Server.Repositories;
 
 namespace Server.Controllers
 {
@@ -8,12 +8,13 @@ namespace Server.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private CommentsRepository _commentsRepository;
-        public CommentsController()
+        private readonly ICommentsRepository _commentsRepository;
+        public CommentsController( ICommentsRepository commentsRepository)
         {
-            _commentsRepository = new CommentsRepository();
+            _commentsRepository = commentsRepository;
         }
 
+        //Murphree - input is a new comment using the CommentsPost Model, output is the commentId
         [HttpPost]
         public IActionResult Post([FromBody] CommentsPost newComment)
         {
@@ -27,6 +28,7 @@ namespace Server.Controllers
             return Ok(commentId);
         }
 
+        //Murphree - no inputs needed, output is a list of comments using the CommentsGet Model 
         [HttpGet]
         [Route("/api/Comments")]
         public ActionResult<List <CommentsGet>> GetAllComments()
