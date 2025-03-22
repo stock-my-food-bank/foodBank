@@ -52,13 +52,13 @@
   display: none; 
 } */
 
-/* Nyambura --Show the caption when the table is hovered (accessibility) */
-table:hover caption {
+/* Nyambura --Show the caption when the table is hovered (accessibility) removed as it does not work with display:none */
+/* table:hover caption {
   display: block;
-  position: absolute;  /* Optional: Position it over or near the table */
-  background-color: rgba(0, 0, 0, 0.5);/* Optional: Add background for better visibility */
-  color: white; /* Optional: Change text color for better contrast */
+  position: absolute;  
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white; 
   padding: 5px;
-  font-size: 1em; /* Optional: Adjust size */
-  top: 0; /* Adjust position as needed */
-} 
+  font-size: 1em; 
+  top: 0; 
+}  */

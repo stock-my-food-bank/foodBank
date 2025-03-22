@@ -105,9 +105,9 @@ function SurveyPage() {
                 </div>
 
                 {/* Footer for view 1 survey page */}
-                <div>
+                <footer>
                     <Logo />
-                </div>
+                </footer>
             </div>
         </SurveyProvider>
   );
