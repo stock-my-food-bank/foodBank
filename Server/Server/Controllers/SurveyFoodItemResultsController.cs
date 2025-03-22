@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
-using Server.Repositories;
 
 namespace Server.Controllers
 {
@@ -8,10 +8,10 @@ namespace Server.Controllers
     [ApiController]
     public class SurveyFoodItemResultsController : ControllerBase
     {
-        private SurveyFoodItemResultsRepository _surveyFoodItemResultsRepository;
-        public SurveyFoodItemResultsController()
+        private readonly ISurveyFoodItemResultsRepository _surveyFoodItemResultsRepository;
+        public SurveyFoodItemResultsController(ISurveyFoodItemResultsRepository surveyFoodItemResultsRepository)
         {
-            _surveyFoodItemResultsRepository = new SurveyFoodItemResultsRepository();
+            _surveyFoodItemResultsRepository = surveyFoodItemResultsRepository;
         }
 
         //Murphree -adds a new vote to the database based on the surveyFoodItemResultsPost model and returns surveyResultId

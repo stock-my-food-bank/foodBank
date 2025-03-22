@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
 using Server.Repositories;
 
@@ -8,13 +9,13 @@ namespace Server.Controllers
     [ApiController]
     public class SurveysController : ControllerBase
     {
-        private SurveysRepository _surveysRepository;
-        private CommentsRepository _commentsRepository;
+        private readonly ISurveysRepository _surveysRepository;
+        private ICommentsRepository _commentsRepository;
         private UsersRepository _usersRepository;
-        public SurveysController()
+        public SurveysController(ICommentsRepository commentsRepository, ISurveysRepository surveysRepository)
         {
-            _surveysRepository = new SurveysRepository();
-            _commentsRepository = new CommentsRepository();
+            _surveysRepository = surveysRepository;
+            _commentsRepository = commentsRepository;
             _usersRepository = new UsersRepository();
         }
 

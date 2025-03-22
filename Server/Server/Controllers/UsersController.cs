@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
-using Server.Repositories;
 
 namespace Server.Controllers
 {
@@ -8,10 +8,10 @@ namespace Server.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private UsersRepository _usersRepository;
-        public UsersController()
+        private readonly IUsersRepository _usersRepository;
+        public UsersController(IUsersRepository usersRepository)
         {
-            _usersRepository = new UsersRepository();
+            _usersRepository = usersRepository;
         }
 
         //Murphree - creates a user -- input is a new user role, output is the userId

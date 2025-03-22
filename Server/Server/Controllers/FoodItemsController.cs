@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Interfaces;
 using Server.Models;
-using Server.Repositories;
 
 namespace Server.Controllers
 {
@@ -8,10 +8,10 @@ namespace Server.Controllers
     [ApiController]
     public class FoodItemsController : ControllerBase
     {
-        private FoodItemsRepository _foodItemsRepository;
-        public FoodItemsController() 
+        private readonly IFoodItemsRepository _foodItemsRepository;
+        public FoodItemsController(IFoodItemsRepository foodItemRepository) 
         {
-            _foodItemsRepository = new FoodItemsRepository();
+            _foodItemsRepository = foodItemRepository;
         }
 
         // Muphree - gets foodItems from Spoonacular, no input needed returns list of foodItems using foodItemsBasic model

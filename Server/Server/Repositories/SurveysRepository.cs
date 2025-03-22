@@ -1,9 +1,10 @@
-﻿using Server.Models;
+﻿using Server.Interfaces;
+using Server.Models;
 using System.Data.SQLite;
 
 namespace Server.Repositories
 {
-    public class SurveysRepository
+    public class SurveysRepository : ISurveysRepository
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 

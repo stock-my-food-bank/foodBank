@@ -1,12 +1,11 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Security.Policy;
+﻿using System.Data.SQLite;
 using System.Text.Json;
+using Server.Interfaces;
 using Server.Models;
 
 namespace Server.Repositories
 {
-    public class FoodItemsRepository
+    public class FoodItemsRepository : IFoodItemsRepository
     {
         private readonly string _connectionString = "Data Source=foodbank.db; Version=3;";
 
@@ -56,53 +55,54 @@ namespace Server.Repositories
             return text;
         }
 
-        //commented code is for if foodItems are stored in database after call to spoonacular api
-        //public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
-        //{
-        //    using (var connection = new SQLiteConnection(_connectionString))
-        //    {
-        //        connection.Open();
-        //        var command = connection.CreateCommand();
-        //        command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
-        //        command.Parameters.AddWithValue("@foodId", foodId);
-        //        SQLiteDataReader reader = command.ExecuteReader();
+        // for if foodItems are stored in database after call to spoonacular api
+        public FoodItemsGet GetOneFoodItemFromDatabase(int foodId)
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM FoodItems WHERE Id = @foodId";
+                command.Parameters.AddWithValue("@foodId", foodId);
+                SQLiteDataReader reader = command.ExecuteReader();
 
-        //        FoodItemsGet foodItem = new FoodItemsGet();
+                FoodItemsGet foodItem = new FoodItemsGet();
 
-        //        while (reader.Read())
-        //        {
-        //            foodItem.id = foodId;
-        //            foodItem.title = reader[2].ToString();
-        //        }
-        //        connection.Close();
-        //        return foodItem;
-        //    }
-        //}
+                while (reader.Read())
+                {
+                    foodItem.id = foodId;
+                    foodItem.title = reader[2].ToString();
+                }
+                connection.Close();
+                return foodItem;
+            }
+        }
 
-        //public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
-        //{
-        //    using (var connection = new SQLiteConnection(_connectionString))
-        //    {
-        //        connection.Open();
-        //        var command = connection.CreateCommand();
-        //        command.CommandText = "SELECT * FROM FoodItems";
-        //        SQLiteDataReader reader = command.ExecuteReader();
+        // for if foodItems are stored in database after call to spoonacular api
+        public List<FoodItemsGet> GetAllFoodItemsFromDatabase()
+        {
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM FoodItems";
+                SQLiteDataReader reader = command.ExecuteReader();
 
-        //        List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
+                List<FoodItemsGet> allFoodItems = new List<FoodItemsGet>();
 
-        //        while (reader.Read())
-        //        {
-        //            allFoodItems.Add(new FoodItemsGet
-        //            {
-        //                id = reader.GetInt32(0),
-        //                title = reader[1].ToString(),
-        //            });
-        //        }
-        //        connection.Close();
+                while (reader.Read())
+                {
+                    allFoodItems.Add(new FoodItemsGet
+                    {
+                        id = reader.GetInt32(0),
+                        title = reader[1].ToString(),
+                    });
+                }
+                connection.Close();
 
-        //        return allFoodItems;
-        //    }
-        //}
+                return allFoodItems;
+            }
+        }
 
         //Murphree - api key is in .env file and read through a library, connects to spoonacular api and gets a list of food items using List<prouct> from FoodItemsBasic
         public async Task<List<Product>> GetFoodItemsFromSpoonacular()
