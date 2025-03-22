@@ -73,19 +73,20 @@ function ResultsPage() {
             </div>
             {/* Back Button for Results Page */}
             <Link to="/" >
-                <div className="d-flex mt-2 ms-5">
-                    <BasicButton text="Back"/>
+                <div className="d-flex mt-2 ms-5" role="navigation">
+                    <BasicButton text="Back" aria-label="Go Back to Previous Page"/>
                 </div>
             </Link>
             {/* StockMyFoodBank Header  */}
-            <h1 style={{ marginTop: '-3.5rem' }}>
+            <h1 style={{ marginTop: '-3.5rem' }} id="main-title">
                 StockMyFoodBank
             </h1>
             <div className="container bg-info">
-                <h2>
+                <h2 >
                     Results
                 </h2>
                 <div className="row row-cols-2 m-1 justify-content-around">
+                  <caption tabIndex="0">Results of the StockMyFoodBank survey of items being considered by the foodbank</caption>
                     {/*Table that will display individual item results in table format */}
                     {/*Murphree - maps through votes pulled from API call and adds in foodItems from other call*/}
                     {votes?.map(({ foodItemId, voteCountYes, voteCountNo }) => (
@@ -102,9 +103,9 @@ function ResultsPage() {
                 </div>
             </div> 
             {/* Footer for view 2 Results page */}
-            <div>
+            <footer>
                 <Logo />
-            </div>
+            </footer>
 
         </div>        
     );
@@ -117,16 +118,16 @@ function ResultsPage() {
 const ItemResults = ({ itemName, yesCount, noCount, foodItemMap }) => {
     return (
         <div className="col-5 gy-3 bg-light">
-            <div>{foodItemMap[itemName]}</div>
-            <table class="table table-bordered">
+            <div tabIndex="0">{foodItemMap[itemName]}</div>
+            <table class="table table-bordered" aria-describedby="results-heading" tabIndex="0">
                 <tbody>
                     <tr>
-                        <th>Yes Votes</th>
-                        <td>{yesCount}</td>
+                        <th  scope="row" tabIndex="0">Yes Votes</th>
+                        <td  tabIndex="0">{yesCount}</td>
                     </tr>
                     <tr>
-                        <th>No Votes</th>
-                        <td>{noCount}</td>
+                        <th scope="row" tabIndex="0">No Votes</th>
+                        <td  tabIndex="0">{noCount}</td>
                     </tr>
                 </tbody>
             </table>
