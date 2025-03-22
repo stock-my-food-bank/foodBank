@@ -86,7 +86,8 @@ function ResultsPage() {
                     Results
                 </h2>
                 <div className="row row-cols-2 m-1 justify-content-around">
-                  <caption tabIndex="0">Results of the StockMyFoodBank survey of items being considered by the foodbank</caption>
+                    {/* Murphree - caption is displacing the tables so commented out to determine later */}
+                    {/* <caption tabIndex="0">Results of the StockMyFoodBank survey of items being considered by the foodbank</caption> */}
                     {/*Table that will display individual item results in table format */}
                     {/*Murphree - maps through votes pulled from API call and adds in foodItems from other call*/}
                     {votes?.map(({ foodItemId, voteCountYes, voteCountNo }) => (

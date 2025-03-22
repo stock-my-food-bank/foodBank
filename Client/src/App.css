@@ -46,20 +46,19 @@
   max-height: 100%;
   aspect-ratio: 1;
 }
-/* Nyambura --Hide the table caption by default (accessibility) */
-/*   ******Murphree - DO NOT add any display nones or it may break the jest tests I am building****
-table caption {
+/* Nyambura --Hide the table caption by default (accessibility)
+/* ******Murphree - DO NOT add any display nones or it may break the jest tests I am building**** */
+/* table caption {
   display: none; 
-}*/
+} */
 
 /* Nyambura --Show the caption when the table is hovered (accessibility) */
-/*table:hover caption {
+table:hover caption {
   display: block;
-  position: absolute; */   /* Optional: Position it over or near the table */
-  /*background-color: rgba(0, 0, 0, 0.5);*/ /* Optional: Add background for better visibility */
-  /*color: white; *//* Optional: Change text color for better contrast */
- /* padding: 5px;*/
-  /*font-size: 1em; *//* Optional: Adjust size */
-  /*top: 0; *//* Adjust position as needed */
-/*}*/
-
+  position: absolute;  /* Optional: Position it over or near the table */
+  background-color: rgba(0, 0, 0, 0.5);/* Optional: Add background for better visibility */
+  color: white; /* Optional: Change text color for better contrast */
+  padding: 5px;
+  font-size: 1em; /* Optional: Adjust size */
+  top: 0; /* Adjust position as needed */
+} 

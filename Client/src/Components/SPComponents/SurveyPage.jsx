@@ -12,6 +12,7 @@ import Pagination from '../Pagination';
 import Popup from './Popup';
 import { createContext, useEffect, useState } from 'react';
 import SubmitButton from './SubmitButton';
+import { Link } from 'react-router-dom';
 
 /*
 Murphree - Context allows for information to be collected and passed through a select set of components
@@ -66,10 +67,11 @@ function SurveyPage() {
                 </div>
 
                 {/* Results Button for Survey Page, styled to start from opposite side */}
-                <div className="d-flex flex-row-reverse">
-                    <BasicButton text="Results"/>
-                </div>
-
+                <Link to='/results'>
+                    <div className="d-flex flex-row-reverse">
+                        <BasicButton text="Results"/>
+                    </div>
+                </Link>
                 {/* StockMyFoodBank Header  */}
                 <h1>
                     StockMyFoodBank
