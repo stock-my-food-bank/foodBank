@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 //Nyambura --Functional component for results page comments for foodbank manager to review
-function RPComments () {
+export const RPComments = () => {
     const [comments, setComments] = useState();
     const [commentCount, setCommentCount] = useState(5);
     
@@ -50,7 +50,7 @@ function RPComments () {
 }
 
 //Murphree - indiviudal comment component
-const Comment = ({ comment, date }) => {
+export const Comment = ({ comment, date }) => {
     return (
         <li className="list-group-item d-flex justify-content-between align-items-center">
             {comment}
@@ -58,5 +58,3 @@ const Comment = ({ comment, date }) => {
         </li>
     )
 }
-
-export default RPComments; 

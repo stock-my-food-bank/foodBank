@@ -1,18 +1,15 @@
 //Nyambura --Imported Basic Button Styling  
-import BasicButton from '../BasicButton'
+import { BasicButton } from '../BasicButton';
 //Nyambura --Imported Food Item list 
-import FoodItems from './FoodItems';
+import { FoodItems } from './FoodItems';
 //Nyambura --Imported comments component 
-import Comments from './Comments';
+import { Comments } from './Comments';
 //Nyambura --Imported Logo component 
-import Logo from '../Logo';
-//Imported Pagination 
-import Pagination from '../Pagination';
-//Imported PopUp 
-import Popup from './Popup';
+import { Logo } from '../Logo';
 import { createContext, useEffect, useState } from 'react';
-import SubmitButton from './SubmitButton';
+import { SubmitButton } from './SubmitButton';
 import { Link } from 'react-router-dom';
+import { fetchApi } from '../../helpers/fetch';
 
 /*
 Murphree - Context allows for information to be collected and passed through a select set of components
@@ -28,10 +25,8 @@ export const SurveyProvider = ({children}) => {
     );
 }
 
-function SurveyPage() {
+export const SurveyPage = () => {
     const [foodItemList, setFoodItemsList] = useState();
-    const [comment, setComment] = useState();
-    const [indivSurveyResults ,setIndivSurveyResults] = useState();
     
     /*working call to server and sqlite info -Sarah
     always add a , [] as second param in useeffect so it's only called once
@@ -45,7 +40,7 @@ function SurveyPage() {
     async function GetFoodList(){
         const url = 'https://localhost:7183/api/FoodItems';
         try {
-            const response = await fetch(url);
+            const response = await fetchApi(url);
             if(!response.ok){
                 throw new Error(`Response Status: ${response.status}`);
             }
@@ -56,7 +51,6 @@ function SurveyPage() {
             alert(error.message);
         }
     }
-
     return (
     
         <SurveyProvider>
@@ -81,15 +75,8 @@ function SurveyPage() {
                 <div className="Container-md Stock-Color">
                     <FoodItems 
                     foodItemList = {foodItemList}
-                    // {/* // _submitHandler={submitHandler} */}
                     />
                 </div>
-                {/* Pagination - SM removing for now for prototype
-                <div>
-                    <Pagination />
-
-                </div> */}
-
                 {/* Comments section added for view 1 survey page  */}
                 <div>
                     <Comments />
@@ -99,11 +86,6 @@ function SurveyPage() {
                 <div className="d-flex justify-content-center ">
                     <SubmitButton />
                 </div>
-                {/* Popup modal can alter header and text using props to show error and submitted popup when submit button is clicked  */}
-                <div>
-                    <Popup/>
-                </div>
-
                 {/* Footer for view 1 survey page */}
                 <footer>
                     <Logo />
@@ -112,5 +94,3 @@ function SurveyPage() {
         </SurveyProvider>
   );
 }
-
-export default SurveyPage;

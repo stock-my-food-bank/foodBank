@@ -1,7 +1,7 @@
 // Needed for routes as we are importing from the library
 import { useNavigate } from 'react-router-dom';
 //Nyambura --Imported Basic Button Styling  
-import BasicButton from '../BasicButton'
+import { BasicButton } from '../BasicButton'
 import { useContext } from 'react';
 import { SurveyContext } from './SurveyPage';
 
@@ -13,7 +13,7 @@ Submits a complete survey
       - takes the surveyId and inputs into post call for each individual survey result for each fooditem -- information pulled from response using context
       - try catch to give pop up message if submit is unsuccessful
 */
-function SubmitButton () {
+export const SubmitButton = () => {
     const {response, setResponse} = useContext(SurveyContext);
     const navigate = useNavigate();
 
@@ -56,9 +56,8 @@ function SubmitButton () {
             await wait(5000);
             navigate('/')
         }
-    };
-
-
+    }
+    
     return(
             <BasicButton 
                 text="Submit" 
@@ -66,5 +65,3 @@ function SubmitButton () {
             />
     );
 }
-
-export default SubmitButton;

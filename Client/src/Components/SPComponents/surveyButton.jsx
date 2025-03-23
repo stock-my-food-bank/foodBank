@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { SurveyContext } from "./SurveyPage";
 
 // Murphree - response used to take in information from other components on SurveyPage
-function SurveyButton ({foodItemId}) {
+export const SurveyButton = ({foodItemId}) => {
     const {response, setResponse} = useContext(SurveyContext);
 
     //Murphree - vote is true, false, or null which stands for yes, no, or skip
@@ -27,5 +27,3 @@ function SurveyButton ({foodItemId}) {
         </div>
     );
 }
-
-export default SurveyButton;

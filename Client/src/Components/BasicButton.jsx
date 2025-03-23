@@ -1,17 +1,10 @@
  
 /* Nyambura --Basic Button functional component*/ 
-
-function BasicButton(props) {
+export const BasicButton = (props) => {
 
     return (
-       
-        <div>
-            <button className="custom-btn m-3 " onClick={props.onClickHandler}>
-        
-                {props.text}
-            </button>
-        </div>
-        
+        <button className="custom-btn m-3 " onClick={props.onClickHandler}>
+            {props.text}
+        </button>
     );
 }
-export default BasicButton;

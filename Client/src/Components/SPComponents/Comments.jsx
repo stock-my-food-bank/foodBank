@@ -3,7 +3,7 @@ import { SurveyContext } from "./SurveyPage";
 
 //Nyambura Comments section for view 1 
 //Murphree - uses response useContext to save comments entered through onChangeHandler, will then be accessible for submitButton
-function Comments ({}) {
+export const Comments = ({}) => {
 
     const {response, setResponse} = useContext(SurveyContext);
 
@@ -23,4 +23,3 @@ function Comments ({}) {
         </>
     );
 }
-export default Comments; 
