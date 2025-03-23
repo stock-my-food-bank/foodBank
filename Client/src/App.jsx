@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css'
-import {SurveyPage} from './Components/SPComponents/SurveyPage';
-import {ResultsPage} from './Components/RPComponents/ResultsPage';
+import SurveyPage from './Components/SPComponents/SurveyPage';
+import ResultsPage from './Components/RPComponents/ResultsPage';
 
 
 
