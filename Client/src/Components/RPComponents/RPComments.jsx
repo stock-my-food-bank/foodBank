@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 //Nyambura --Functional component for results page comments for foodbank manager to review
-const RPComments = () => {
+export const RPComments = () => {
     const [comments, setComments] = useState();
     const [commentCount, setCommentCount] = useState(5);
     

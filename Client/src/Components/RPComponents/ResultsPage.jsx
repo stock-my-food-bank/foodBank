@@ -1,6 +1,5 @@
 //Nyambura --Results page
 import { Link } from "react-router-dom";
-
 //logo imported 
 import { Logo } from "../Logo";
 //basic button stylin imported 
@@ -55,7 +54,6 @@ export const ResultsPage = () => {
                 setFoodItems(foodItemMap);
             } catch (error){
                 console.log("resultsPage foodItem error", error.message)
-                alert(error.message);
             }
         };
         fn();
