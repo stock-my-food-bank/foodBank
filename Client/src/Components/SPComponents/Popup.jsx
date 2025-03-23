@@ -1,6 +1,6 @@
 //Nyambura --Popup for error and survey submission
 //Murphree -- saved for future iterations - alerts are being used for this prototype
-function Popup (props) {
+export const Popup = (props) => {
     return (
         <>
             <div class="modal" tabIndex="-1">
@@ -26,4 +26,3 @@ function Popup (props) {
 
     );
 }
-export default Popup; 

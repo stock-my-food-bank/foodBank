@@ -1,12 +1,12 @@
 //Nyambura --Results page
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //logo imported 
-import Logo from "../Logo";
+import { Logo } from "../Logo";
 //basic button stylin imported 
-import BasicButton from "../BasicButton";
+import { BasicButton } from "../BasicButton";
 //RPComments imported 
-import RPComments from "./RPComments";
+import { RPComments } from "./RPComments";
 import { useEffect, useState } from "react";
 
 
@@ -14,10 +14,11 @@ import { useEffect, useState } from "react";
 Murphree - Context allows for information to be collected and passed through a select set of components
     - response context starts here & resultsPage in GetFoodList to give foodItem info
 */
-function ResultsPage() {
+export const ResultsPage = () => {
     const [votes, setVotes] = useState();
     const [foodItems, setFoodItems] = useState({});
 
+    //MS- fn stands for function
     useEffect(() => {
         const fn = async () => {
             const url = 'https://localhost:7183/api/SurveyFoodItemResults';
@@ -116,7 +117,7 @@ function ResultsPage() {
              uses gutter bootstrap to separate tables
              foodItemMap takes in foodItems to so can match title to Id to name results
 */
-const ItemResults = ({ itemName, yesCount, noCount, foodItemMap }) => {
+export const ItemResults = ({ itemName, yesCount, noCount, foodItemMap }) => {
     return (
         <div className="col-5 gy-3 bg-light">
             <div tabIndex="0">{foodItemMap[itemName]}</div>
@@ -136,6 +137,4 @@ const ItemResults = ({ itemName, yesCount, noCount, foodItemMap }) => {
     )
 }
 
-
-export default ResultsPage;
 

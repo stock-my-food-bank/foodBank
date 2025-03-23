@@ -1,6 +1,6 @@
 
 //Murphree - handles consistant formatting of foodItem images, title is for alt tag for screen readers
-function FoodImg ({img, foodItemTitle}) {
+export const FoodImg = ({img, foodItemTitle}) => {
     
     return (
         <img 
@@ -11,4 +11,3 @@ function FoodImg ({img, foodItemTitle}) {
         />
     )
 }
-export default FoodImg;

@@ -1,7 +1,7 @@
 //Murphree - was removed from this version of the prototype, saving for future iterations
 
 //Nyambura-Pagination
-function Pagination () {
+export const Pagination = () => {
     return (
 
         <>
@@ -27,4 +27,3 @@ function Pagination () {
     );
 
 }
-export default Pagination; 
