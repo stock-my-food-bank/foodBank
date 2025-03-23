@@ -67,18 +67,19 @@ function SurveyPage() {
                 </div>
 
                 {/* Results Button for Survey Page, styled to start from opposite side */}
+                {/* Accessibility --Aria-label */}
                 <Link to='/results'>
                     <div className="d-flex flex-row-reverse">
-                        <BasicButton text="Results"/>
+                        <BasicButton text="Results" aria-label="Go to Results Page"/>
                     </div>
                 </Link>
                 {/* StockMyFoodBank Header  */}
-                <h1>
+                <h1 id="SurveyPageHeader" tabIndex="0">
                     StockMyFoodBank
                 </h1>
 
                 {/* Container that hold view 1 survey page food items */}
-                <div className="Container-md Stock-Color">
+                <div className="Container-md Stock-Color" id="foodItemSelection">
                     <FoodItems 
                     foodItemList = {foodItemList}
                     // {/* // _submitHandler={submitHandler} */}
@@ -91,13 +92,14 @@ function SurveyPage() {
                 </div> */}
 
                 {/* Comments section added for view 1 survey page  */}
-                <div>
+                <div aria-labelledby="Insert Comments Section" tabIndex="0">
                     <Comments />
                 </div>
 
                 {/* Submit Button for Survey Page, styled to be in the middle of page */}
-                <div className="d-flex justify-content-center ">
-                    <SubmitButton />
+                  {/* Accessibility --Aria-label */}
+                <div className="d-flex justify-content-center " tabIndex="0">
+                    <SubmitButton aria-label="Submit yur survey answers" />
                 </div>
                 {/* Popup modal can alter header and text using props to show error and submitted popup when submit button is clicked  */}
                 <div>
