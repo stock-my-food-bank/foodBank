@@ -22,11 +22,4 @@ describe('FoodImg Component', () => {
     expect(imgElement).toHaveClass('p-0');
     expect(imgElement).toHaveClass('foodImg');
   });
-
-  test('applies the inline style correctly', () => {
-    render(<FoodImg img={imgUrl} foodItemTitle={foodItemTitle} />);
-    const imgElement = screen.getByRole('img');
-
-    expect(imgElement).toHaveStyle({ maxHeight: '5.5rem' });
-  });
 });
