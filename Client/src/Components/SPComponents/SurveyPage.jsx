@@ -41,21 +41,16 @@ export const SurveyPage = () => {
         const url = 'https://localhost:7183/api/FoodItems';
         try {
             const response = await fetchApi(url);
-            console.log("response", response);
             if(!response.ok){
                 throw new Error(`Response Status: ${response.status}`);
             }
             const json = await response.json();
-            console.log("json", json)
             setFoodItemsList(json);
         } catch (error){
             console.log("surveypage error message", error.message)
             alert(error.message);
         }
     }
-
-    console.log(foodItemList);
-
     return (
     
         <SurveyProvider>

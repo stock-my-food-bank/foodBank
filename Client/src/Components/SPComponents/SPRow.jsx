@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FoodItemDesc } from "./foodItemDesc";
 import { SurveyButton } from "./surveyButton";
 
