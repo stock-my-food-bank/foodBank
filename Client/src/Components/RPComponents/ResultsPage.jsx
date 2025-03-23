@@ -17,7 +17,7 @@ export const ResultsPage = () => {
     const [votes, setVotes] = useState();
     const [foodItems, setFoodItems] = useState({});
 
-    //MS- fn stands for function
+    //SM- fn stands for function
     useEffect(() => {
         const fn = async () => {
             const url = 'https://localhost:7183/api/SurveyFoodItemResults';
@@ -85,8 +85,6 @@ export const ResultsPage = () => {
                     Results
                 </h2>
                 <div className="row row-cols-2 m-1 justify-content-around">
-                    {/* Murphree - caption is displacing the tables so commented out to determine later */}
-                    {/* <caption tabIndex="0">Results of the StockMyFoodBank survey of items being considered by the foodbank</caption> */}
                     {/*Table that will display individual item results in table format */}
                     {/*Murphree - maps through votes pulled from API call and adds in foodItems from other call*/}
                     {votes?.map(({ foodItemId, voteCountYes, voteCountNo }) => (

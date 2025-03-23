@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css'
 import {SurveyPage} from './Components/SPComponents/SurveyPage';

@@ -1,6 +1,5 @@
 import { SPRow } from "./SPRow";
 
-
 //Murphree - List() sets if numbers needed, maps through the foodItem list to create as many rows as foodItems pulled from API, no items comment given if empty array
 export const SPColumn = ({header, columnType, foodItemList, numbered }) => {
     const List = numbered ? OrderedList : UnorderedList;
