@@ -73,13 +73,13 @@ export const SurveyPage = () => {
                 </h1>
 
                 {/* Container that hold view 1 survey page food items */}
-                <div className="Container-md Stock-Color" id="foodItemSelection">
+                <div className="Container-md Stock-Color tablet-font" id="foodItemSelection">
                     <FoodItems 
                     foodItemList = {foodItemList}
                     />
                 </div>
                 {/* Comments section added for view 1 survey page  */}
-                <div aria-labelledby="Insert Comments Section" tabIndex="0">
+                <div aria-labelledby="Insert Comments Section tablet-font" tabIndex="0">
                     <Comments />
                 </div>
 

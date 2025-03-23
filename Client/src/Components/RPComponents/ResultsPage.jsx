@@ -77,11 +77,11 @@ export const ResultsPage = () => {
                 </div>
             </Link>
             {/* StockMyFoodBank Header  */}
-            <h1 style={{ marginTop: '-3.5rem' }} id="main-title">
+            <h1 style={{ marginTop: '-3.5rem', marginLeft: '2rem' }} id="main-title">
                 StockMyFoodBank
             </h1>
-            <div className="container bg-info">
-                <h2 >
+            <div className="container Stock-Color">
+                <h2 className="pt-2" >
                     Results
                 </h2>
                 <div className="row row-cols-2 m-1 justify-content-around">
@@ -98,7 +98,7 @@ export const ResultsPage = () => {
                         />
                     ))}
                 </div>
-                <div>
+                <div className="tablet-font">
                     <RPComments />
                 </div>
             </div> 
@@ -117,10 +117,10 @@ export const ResultsPage = () => {
 */
 export const ItemResults = ({ itemName, yesCount, noCount, foodItemMap }) => {
     return (
-        <div className="col-5 gy-3 bg-light">
-            <div tabIndex="0">{foodItemMap[itemName]}</div>
-            <table class="table table-bordered" aria-describedby="results-heading" tabIndex="0">
-                <tbody>
+        <div className="col-5 gy-3 bg-light tablet-font">
+            <div className="pb-1" tabIndex="0">{foodItemMap[itemName]}</div>
+            <table className="table table-bordered" aria-describedby="results-heading" tabIndex="0">
+                <tbody >
                     <tr>
                         <th  scope="row" tabIndex="0">Yes Votes</th>
                         <td  tabIndex="0">{yesCount}</td>

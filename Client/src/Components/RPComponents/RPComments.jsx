@@ -39,7 +39,7 @@ export const RPComments = () => {
     //Murphree - using id fragment to connect showMore link to visiable comments 
     return (
         <>
-           <ul id='comment-table' className="list-group m-2">
+           <ul id='comment-table' className="list-group m-2 pb-3">
                 {visibleComments.map(c => <Comment comment={c.comment} date={c.dateTime} />)}
             </ul>
             <div>

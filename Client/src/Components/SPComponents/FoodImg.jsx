@@ -6,8 +6,7 @@ export const FoodImg = ({img, foodItemTitle}) => {
         <img 
             src={img}
             alt={`${foodItemTitle} Image`}
-            className="align-middle p-0 foodImg"
-            style={{ maxHeight: '5.5rem' }}
+            className="align-middle p-0 foodImg tablet-img"
         />
     )
 }
