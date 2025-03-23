@@ -45,6 +45,7 @@
 .foodImg{
   max-height: 100%;
   aspect-ratio: 1;
+  max-height: 5.5rem;
 }
 /* Nyambura --Hide the table caption by default (accessibility)
 /* ******Murphree - DO NOT add any display nones or it may break the jest tests I am building**** */
@@ -62,3 +63,32 @@
   font-size: 1em; 
   top: 0; 
 }  */
+
+.col-5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 9.5rem;
+}
+/* SM & SN change font size for if at smallest common tablet size - this is minimum planned usage size */
+@media (
+  (max-width: 1025px) 
+){
+    .tablet-font {
+    font-size: .8em;
+  }
+  .tablet-img {
+    max-height: 4.5rem;
+  }
+}
+
+@media (
+  (max-width: 767px) 
+){
+    .tablet-font {
+    font-size: .8em;
+  }
+  .tablet-img {
+    max-height: 2.75rem;
+  }
+}
