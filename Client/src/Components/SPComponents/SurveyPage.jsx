@@ -38,7 +38,7 @@ export const SurveyPage = () => {
     }, []);
 
     async function GetFoodList(){
-        const url = 'https://stockmyfoodbank-159895373187.us-west1.run.app/api/FoodItems';
+        const url = 'https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/FoodItems';
         try {
             const response = await fetchApi(url);
             if(!response.ok){

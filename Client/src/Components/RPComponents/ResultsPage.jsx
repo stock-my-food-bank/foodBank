@@ -20,7 +20,7 @@ export const ResultsPage = () => {
     //SM- fn stands for function
     useEffect(() => {
         const fn = async () => {
-            const url = 'https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/SurveyFoodItemResults/api/SurveyFoodItemResults';
+            const url = 'https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/SurveyFoodItemResults';
             try {
                 const response = await fetch(url);
                 if(!response.ok){
@@ -42,7 +42,7 @@ export const ResultsPage = () => {
     */
     useEffect(() => {
         const fn = async () => {
-            const url = 'https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/SurveyFoodItemResults/api/FoodItems';
+            const url = 'https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/FoodItems';
             try {
                 const response = await fetch(url);
                 if(!response.ok){
