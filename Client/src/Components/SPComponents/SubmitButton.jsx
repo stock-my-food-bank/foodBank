@@ -20,7 +20,7 @@ export const SubmitButton = () => {
     const onClickHandler = async(e) => {
         //post for comment and survey, returning surveyId
         try { 
-            const res = await fetch('http://localhost:5252/api/Surveys', {
+            const res = await fetch('https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/Surveys', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"}, 
                 body: JSON.stringify(response.comment),
@@ -30,7 +30,7 @@ export const SubmitButton = () => {
 
             //Murphree map through vote results and do a post call for each vote 
             const results = Object.entries(response.voteResults).map(async ([fooditem, voteResult]) => {
-                await fetch('http://localhost:5252/api/SurveyFoodItemResults', {
+                await fetch('https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/SurveyFoodItemResults', {
                     method: "POST",
                     headers: {"Content-Type": "application/json"}, 
                     body: JSON.stringify({

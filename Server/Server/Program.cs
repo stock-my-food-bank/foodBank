@@ -17,7 +17,7 @@ namespace Server
             {
                 options.AddPolicy("AllowOrigins", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173", "http://localhost:4173", "http://localhost:8080").AllowAnyHeader().AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:5173", "http://localhost:4173", "http://localhost:8080", "https://stockmyfoodbank-159895373187.us-west1.run.app").AllowAnyHeader().AllowAnyMethod();
 
                 });
             });

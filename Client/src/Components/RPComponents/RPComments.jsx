@@ -7,7 +7,7 @@ export const RPComments = () => {
     
     useEffect(() => {
         const fn = async () => {
-            const url = 'http://localhost:5252/api/Comments';
+            const url = 'https://stockmyfoodbankapi-159895373187.us-central1.run.app/api/Comments';
             try {
                 const response = await fetch(url);
                 if(!response.ok){
