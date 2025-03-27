@@ -15,14 +15,10 @@ namespace Server
             // Add services to the container.
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("localhost", policy =>
+                options.AddPolicy("AllowOrigins", policy =>
                 {
-                    policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:5173", "http://localhost:4173", "http://localhost:8080").AllowAnyHeader().AllowAnyMethod();
 
-                });
-                options.AddPolicy("production", policy =>
-                {
-                    policy.WithOrigins("http://localhost:4173").AllowAnyHeader().AllowAnyMethod();
                 });
             });
 
@@ -39,8 +35,7 @@ namespace Server
 
             var app = builder.Build();
 
-            app.UseCors("localhost");
-            app.UseCors("production");
+            app.UseCors("AllowOrigins");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

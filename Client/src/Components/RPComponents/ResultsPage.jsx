@@ -20,7 +20,7 @@ export const ResultsPage = () => {
     //SM- fn stands for function
     useEffect(() => {
         const fn = async () => {
-            const url = 'https://localhost:5252/api/SurveyFoodItemResults';
+            const url = 'http://localhost:5252/api/SurveyFoodItemResults';
             try {
                 const response = await fetch(url);
                 if(!response.ok){
@@ -42,7 +42,7 @@ export const ResultsPage = () => {
     */
     useEffect(() => {
         const fn = async () => {
-            const url = 'https://localhost:5252/api/FoodItems';
+            const url = 'http://localhost:5252/api/FoodItems';
             try {
                 const response = await fetch(url);
                 if(!response.ok){
