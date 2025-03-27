@@ -38,7 +38,7 @@ export const SurveyPage = () => {
     }, []);
 
     async function GetFoodList(){
-        const url = 'https://localhost:7183/api/FoodItems';
+        const url = 'https://localhost:5252/api/FoodItems';
         try {
             const response = await fetchApi(url);
             if(!response.ok){

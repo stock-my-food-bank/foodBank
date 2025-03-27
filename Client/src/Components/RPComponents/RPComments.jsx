@@ -7,7 +7,7 @@ export const RPComments = () => {
     
     useEffect(() => {
         const fn = async () => {
-            const url = 'https://localhost:7183/api/Comments';
+            const url = 'https://localhost:5252/api/Comments';
             try {
                 const response = await fetch(url);
                 if(!response.ok){
